@@ -82,9 +82,13 @@ Take aways
 =============================
 
 To finish this section, let’s list some commonly mentioned characteristics of blockchain:
+
 Immutable
+
 Transparent
+
 Trustless
+
 Automated
 
 The immutable nature is due to the tamperproof nature of the shared ledger, where malicious actors cannot modify past transactions. The blockchain is transparent because all transactions are seen by all parties, past and current. Blockchain protocol allows the blockchain to be trustless, as involved parties do not need to trust each other, as incentive models and cryptography ensures everything moves smoothly. Protocol also automates the blockchain, as mining and verification processes are dictated by the protocol, and do not require active human participation. Since the blockchain and its protocol is public, people can place their trust in the code, without trusting all its participants.
