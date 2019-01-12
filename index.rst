@@ -1,40 +1,28 @@
-.. sampledoc documentation master file, created by
-   sphinx-quickstart on Tue Aug 11 05:04:40 2009.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Welcome to Tezos Capstone! This is a self-paced online curriculum aimed at building a solid foundation for development on the Tezos blockchain ecosystem. Tezos Capstone is open to anyone interested in becoming a Tezos developer, and does not require any prior blockchain knowledge. The curriculum will be covering everything from an introduction to blockchain to building on Tezos and creating your own dApp!
 
-sampledoc tutorial
-==================
+The curriculum is divided into three sections:
 
-This is a tutorial introduction to quickly get you up and running with
-your own sphinx documentation system.  We'll cover installing sphinx,
-customizing the look and feel, using custom extensions for embedding
-plots, inheritance diagrams, syntax highlighted ipython sessions and
-more.  If you follow along the tutorial, you'll start with nothing and
-end up with this site -- it's the bootstrapping documentation tutorial
-that writes itself!
+Section 1: Theory and fundamentals
 
-The source code for this tutorial lives in mpl git (see
-:ref:`fetching-the-data`).
+Section 2: Guided dApp development
+
+Section 3: Building your own dApp
+
+Section 1 begins January 11th, and focuses on introducing Tezos and blockchain development. Everything in this section is mainly theoretical with little actual coding, with the focus being on building your blockchain knowledge and familiarizing yourself with decentralized thinking.
+
+Section 2 begins in February and covers building smart contracts and a dApp. This is a guided portion, and helps get your feet wet in Tezos development.
+
+Section 3 begins in March, and is building your own dApp! We will be supplying mentors to help you overcome any technical challenges.
 
 .. only:: html
-
-    You can also grab a hardcopy of the `sampledoc PDF <sampledoc.pdf>`_
 
 .. toctree::
    :maxdepth: 2
 
    getting_started.rst
    custom_look.rst
-   extensions.rst
-   ipython_directive.rst
-   cheatsheet.rst
-   emacs_help.rst
 
-Indices and tables
+
+Search Tool
 ==================
-
-* :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
-
