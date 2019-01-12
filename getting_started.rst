@@ -46,5 +46,5 @@ Introduction to Tezos Commons Foundation
 =============================
 
 Tezos Commons Foundation, also known as TCF, is the North America branch of the Tezos foundation. TCF is responsible for operations in the North America Community, but also is the creator of this course. So thank you TCF!
-You may already have sphinx `sphinx <http://sphinx.pocoo.org/>`_
-installed -- you can check by doing::
+
+:ref:`custom_look`.
