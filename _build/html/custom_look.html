@@ -53,6 +53,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#take-aways">Take aways</a></li>
+<li><a class="reference internal" href="#additional-readings">Additional readings</a></li>
 </ul>
 </li>
 </ul>
@@ -94,6 +95,8 @@
 <p>Blockchain is a decentralized ledger technology (DLT). It is a shared digital ledger that is not stored in a central source but instead is distributed amongst different nodes. In other words, the distributed ledger is a database that is independently stored and updated by each node in the network. Records for the ledger are constructed by each node based on transactions broadcasted on the network, instead of being distributed by a central authority. Hence, each node in the network processes every transaction, draws a conclusion on it, then votes amongst these conclusions created by the different nodes to determine the majority approved conclusion. This majority approved conclusion is the determined true ledger state of the network.</p>
 <p>In simpler terms, the blockchain is a list of transactions that all parties can inspect but no one can control. In other words, a distributed database that is secure from tampering and revision. One can think of it as a giant file that records all transactions made.
 In the centralized ledger there is a “golden record” held by the Bank, and individual ledgers held by each client. Any client must reconcile its own ledger against that of the central source, bank, and must convince the bank of the “true state” of the ledger if any discrepancies arise.</p>
+<p>Look at the following graphic.</p>
+<img alt="_images/part1.png" src="_images/part1.png" />
 <p>In the distributed ledger variant, there is only a single ledger. All nodes have access to this shared ledger. Using a protocol, all nodes determine the “true state” of the ledger at any point in time. The application of this protocol is sometimes known as “achieving consensus”.</p>
 <p>Blockchain was originally created as the underlying technology for Bitcoin, a digital currency, but people have found numerous applications outside of its original intention. The name itself is derived from being a chain of blocks, where each block is a group of transactions. We will cover this more in the technical section.</p>
 <p>Let’s use Google Docs as an analogy for a distributed shared ledger. In a dated method to collaborate on a Word document with friends, you must create the document on your computer then share it to your friends by sending it or via USB. While the document is being edited by others, you must wait until the new version is sent back to you. During this time period, you are locked out of the document, cannot see changes, nor make any additional edits until it is sent back. This is similar to how current databases work today where multiple people cannot access or edit the same record at once. With Google Docs, multiple parties have access to the document at the same time, and a single version is always visible to all parties.</p>
@@ -116,7 +119,9 @@ In the centralized ledger there is a “golden record” held by the Bank, and i
 <h3>The Byzantine General Problem:<a class="headerlink" href="#the-byzantine-general-problem" title="Permalink to this headline">¶</a></h3>
 <p>The Byzantine General Problem is a scenario created in 1982 to address the reliability of a computer system. A spin on the the Two General Problem, there are multiple generals that need to agree on a strategy to attack their shared target. However, one of the generals is a traitor, and intends to act maliciously to doom the other generals by lying about his strategy. For example, if they agree to attack at the same time, but the malicious general does not, the attack fails and the other generals are routed.</p>
 <p>Along with adding more generals, the leader-follower system is now a general-lieutenant system. For success and consensus to be achieved, everyone must agree on the same strategy.</p>
+<img alt="_images/part2.png" src="_images/part2.png" />
 <p>To add onto this, if the general is a traitor, then lieutenants must take the majority vote. This vote is taken by lieutenants making a decision by actions they witness.</p>
+<img alt="_images/part3.png" src="_images/part3.png" />
 <p>The algorithm shows that as long as two-thirds of all actors are honest, then consensus can be achieved. In the end result, regardless of whether the commander or a lieutenant is a traitor, all lieutenants arrive on the same decision, may not be the right or specific decision, but the same. This is the goal of achieving consensus.</p>
 <p>Byzantine fault tolerant (BFT) is a system which handles the issues presented in the Byzantine General Problem. This algorithm is only BFT if the traitors do not exceed one third of the generals. BFT is essential for blockchain since they are not controlled by a central authority. There are large incentives for bad actors to influence transactions, ranging from manipulating data to stealing millions of dollars worth of cryptocurrency. When Bitcoin was created, the Proof of Work protocol was used in consideration of BFT and ultimately creating a secure blockchain.</p>
 <p>Blockchains elect a leader who determines the contents of the next transaction block. This block is then broadcasted across the network where it is verified by other nodes.</p>
@@ -143,7 +148,16 @@ Transparent
 Trustless
 Automated</p>
 <p>The immutable nature is due to the tamperproof nature of the shared ledger, where malicious actors cannot modify past transactions. The blockchain is transparent because all transactions are seen by all parties, past and current. Blockchain protocol allows the blockchain to be trustless, as involved parties do not need to trust each other, as incentive models and cryptography ensures everything moves smoothly. Protocol also automates the blockchain, as mining and verification processes are dictated by the protocol, and do not require active human participation. Since the blockchain and its protocol is public, people can place their trust in the code, without trusting all its participants.</p>
-<img alt="_static/fancy_screenshot.png" src="_static/fancy_screenshot.png" />
+</div>
+<div class="section" id="additional-readings">
+<h2>Additional readings<a class="headerlink" href="#additional-readings" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://bitcoin.org/bitcoin.pdf/">Bitcoin white paper</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Proof-of-work_system/">Proof of Work</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Proof-of-stake/">Proof of Stake</a></p>
+<p><a class="reference external" href="http://hydra.infosys.tuwien.ac.at/teaching/courses/AdvancedDistributedSystems/download/1975_Akkoyunlu,%20Ekanadham,%20Huber_Some%20constraints%20and%20tradeoffs%20in%20the%20design%20of%20network%20communications.pdf/">Two General Problem</a></p>
+<p><a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.126.9525&amp;rep=rep1&amp;type=pdf/">Byzantine General Problem</a></p>
+<p><a class="reference external" href="https://marknelson.us/posts/2007/07/23/byzantine.html/">Byzantine General Problem</a></p>
+<p><a class="reference external" href="https://medium.com/coinmonks/what-is-a-51-attack-or-double-spend-attack-aa108db63474/">51% Attack and Double Spending</a></p>
 </div>
 </div>
 

@@ -15,6 +15,10 @@ Blockchain is a decentralized ledger technology (DLT). It is a shared digital le
 In simpler terms, the blockchain is a list of transactions that all parties can inspect but no one can control. In other words, a distributed database that is secure from tampering and revision. One can think of it as a giant file that records all transactions made.
 In the centralized ledger there is a “golden record” held by the Bank, and individual ledgers held by each client. Any client must reconcile its own ledger against that of the central source, bank, and must convince the bank of the “true state” of the ledger if any discrepancies arise.
 
+Look at the following graphic.
+
+.. image:: _static/part1.png
+
 In the distributed ledger variant, there is only a single ledger. All nodes have access to this shared ledger. Using a protocol, all nodes determine the “true state” of the ledger at any point in time. The application of this protocol is sometimes known as “achieving consensus”.
 
 Blockchain was originally created as the underlying technology for Bitcoin, a digital currency, but people have found numerous applications outside of its original intention. The name itself is derived from being a chain of blocks, where each block is a group of transactions. We will cover this more in the technical section.
@@ -49,7 +53,10 @@ The Byzantine General Problem is a scenario created in 1982 to address the relia
 
 Along with adding more generals, the leader-follower system is now a general-lieutenant system. For success and consensus to be achieved, everyone must agree on the same strategy.
 
+.. image:: _static/part2.png
 To add onto this, if the general is a traitor, then lieutenants must take the majority vote. This vote is taken by lieutenants making a decision by actions they witness.
+
+.. image:: _static/part3.png
 
 The algorithm shows that as long as two-thirds of all actors are honest, then consensus can be achieved. In the end result, regardless of whether the commander or a lieutenant is a traitor, all lieutenants arrive on the same decision, may not be the right or specific decision, but the same. This is the goal of achieving consensus.
 
@@ -82,4 +89,18 @@ Automated
 
 The immutable nature is due to the tamperproof nature of the shared ledger, where malicious actors cannot modify past transactions. The blockchain is transparent because all transactions are seen by all parties, past and current. Blockchain protocol allows the blockchain to be trustless, as involved parties do not need to trust each other, as incentive models and cryptography ensures everything moves smoothly. Protocol also automates the blockchain, as mining and verification processes are dictated by the protocol, and do not require active human participation. Since the blockchain and its protocol is public, people can place their trust in the code, without trusting all its participants.
 
-.. image:: _static/fancy_screenshot.png
+Additional readings
+=============================
+`Bitcoin white paper <https://bitcoin.org/bitcoin.pdf/>`_
+
+`Proof of Work <https://en.wikipedia.org/wiki/Proof-of-work_system/>`_
+
+`Proof of Stake <https://en.wikipedia.org/wiki/Proof-of-stake/>`_
+
+`Two General Problem <http://hydra.infosys.tuwien.ac.at/teaching/courses/AdvancedDistributedSystems/download/1975_Akkoyunlu,%20Ekanadham,%20Huber_Some%20constraints%20and%20tradeoffs%20in%20the%20design%20of%20network%20communications.pdf/>`_
+
+`Byzantine General Problem <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.126.9525&rep=rep1&type=pdf/>`_
+
+`Byzantine General Problem <https://marknelson.us/posts/2007/07/23/byzantine.html/>`_
+
+`51% Attack and Double Spending <https://medium.com/coinmonks/what-is-a-51-attack-or-double-spend-attack-aa108db63474/>`_
