@@ -21,6 +21,7 @@ Section 3 begins in March, and is building your own dApp! We will be supplying m
 
    getting_started.rst
    custom_look.rst
+   emacs_help.rst
 
 
 Search Tool

@@ -1,221 +1,88 @@
-.. _extensions:
+.. _emacs_help:
 
-****************************************************
-Sphinx extensions for embedded plots, math and more
-****************************************************
 
-Sphinx is written in python, and supports the ability to write custom
-extensions.  We've written a few for the matplotlib documentation,
-some of which are part of matplotlib itself in the
-matplotlib.sphinxext module, some of which are included only in the
-sphinx doc directory, and there are other extensions written by other
-groups, eg numpy and ipython.  We're collecting these in this tutorial
-and showing you how to install and use them for your own project.
-First let's grab the python extension files from the :file:`sphinxext`
-directory from git (see :ref:`fetching-the-data`), and install them in
-our :file:`sampledoc` project :file:`sphinxext` directory::
+******************************************
+Part 3: Blockchain 201
+******************************************
+Cryptographic Fundamentals
+=============================
+Despite being an emerging technology, blockchain is not built on anything new, but on existing technology and theories like cryptography. There are three main concepts to power blockchain: Cryptography, P2P networks and Game Theory/Protocol.
 
-    home:~/tmp/sampledoc> mkdir sphinxext
-    home:~/tmp/sampledoc> cp ../sampledoc_tut/sphinxext/*.py sphinxext/
-    home:~/tmp/sampledoc> ls sphinxext/
-    apigen.py  docscrape.py  docscrape_sphinx.py  numpydoc.py
+Cryptography is the backbone of the blockchain, providing the security infrastructure needed for participants to securely access data as well as protect it from tampering. At its root, cryptography is the art of exchanging a message between two parties without the message being compromised or revealed. You may be familiar with cryptographic techniques like a substitution cipher, replacing a letter with another, or transposition ciphers, rearranging letters in a different order. Historically, cryptography has been used in war to prevent messages from falling into enemy hands, having given birth to complex computational ciphers like the German Enigma in World War II. Blockchain utilizes asymmetric cryptography, also known as public key cryptography.
 
-In addition to the builtin matplotlib extensions for embedding pyplot
-plots and rendering math with matplotlib's native math engine, we also
-have extensions for syntax highlighting ipython sessions, making
-inhertiance diagrams, and more.
+Public key cryptography utilizes both public and private keys to encrypt data. These keys are just long strings of numbers that are paired together, but are not identical. The public key can be shared with anyone, while the private is kept secret to just the owner. Any message encrypted with the public key can only be decrypted with the corresponding private key, and vice versa.
 
-We need to inform sphinx of our new extensions in the :file:`conf.py`
-file by adding the following.  First we tell it where to find the extensions::
+Let’s look at an example of public key cryptography. Bob and Alice have special envelopes (public key) that each have a corresponding key (private key). Bob and Alice both have the keys to their respective envelopes so that they are the only ones that can open them up. Neither wants anyone to read their messages so Alice sends her envelope to Bob to enclose his letter. Bob seals the envelope with the letter, and ships it back to Alice, who opens it with her key and reads the contents.
 
-    # If your extensions are in another directory, add it here. If the
-    # directory is relative to the documentation root, use
-    # os.path.abspath to make it absolute, like shown here.
-    sys.path.append(os.path.abspath('sphinxext'))
+Like any cryptography, public key encryptions are vulnerable to brute force attacks. This means that the private key can be guessed by method of guessing every possible combination, with attack speed being proportional to computing power. Brute force methods can take years or decades to crack secure encryptions.
 
-And then we tell it what extensions to load::
+P2P (Peer 2 Peer) networks allow the blockchain to operate as a decentralized system. In a P2P network, participants utilize and provide the infrastructure for the network. These participants are classified as nodes, and can offer different resources to support the network such as storage, computing power and bandwidth. This allows P2P networks to be sustained without the need of a centralized entity. In blockchain, a miner, also known as a full node, stores the entire blockchain information. In case, the blockchain network is attacked and information is loss, as long as there is one full node, the network can be restored.
 
-    # Add any Sphinx extension module names here, as strings. They can be extensions
-    # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-    extensions = ['matplotlib.sphinxext.only_directives',
-                  'matplotlib.sphinxext.plot_directive',
-                  'IPython.sphinxext.ipython_directive',
-                  'IPython.sphinxext.ipython_console_highlighting',
-                  'sphinx.ext.mathjax',
-                  'sphinx.ext.autodoc',
-                  'sphinx.ext.doctest',
-                  'sphinx.ext.inheritance_diagram',
-                  'numpydoc']
+Game Theory is essential in blockchain to provide incentives for participants in the network. Game theory studies mathematical models between rational parties, covering strategies and incentives. Correct incentive models encourage people to participate in the system, and discourage cheating or malicious actions.
 
-Now let's look at some of these in action.  You can see the literal
-source for this file at :ref:`extensions-literal`.
+In the Bitcoin blockchain, game theory is heavily embedded in the mining system. Miners can cheat in using these methods:
 
-.. _ipython-highlighting:
+- Add an invalid block and transactions to receive more BTC
 
-ipython sessions
-================
+- Mine on top of an invalid or suboptimal blocks
 
-Michael Droettboom contributed a sphinx extension which does `pygments
-<http://pygments.org>`_ syntax highlighting on `ipython
-<http://ipython.scipy.org>`_ sessions.  Just use ipython as the
-language in the ``sourcecode`` directive::
+The Bitcoin blockchain ecosystem is designed so that coins mined from invalid blocks hold little to no value. This discourages miners from adding invalid blocks as they will be wasting computational power on a useless asset. Since parties that join a blockchain cannot be inherently trusted, it is essential to consider game theory and incentives when building a blockchain.
 
-    .. sourcecode:: ipython
 
-        In [69]: lines = plot([1,2,3])
+Blockchain Technicals
+=============================
+After covering the theory for blockchain, let’s delve into the technicals on how the blockchain works. The blockchain is a linked series of blocks, with the oldest/first block known as the genesis block. Each block is composed of two parts: the block header which stores metadata for identification and references to link it to the previous block, and a list of transactions.
 
-        In [70]: setp(lines)
-          alpha: float
-          animated: [True | False]
-          antialiased or aa: [True | False]
-          ...snip
+The Bitcoin blockchain header contains six fields:
 
+- The Bitcoin version number
 
-and you will get the syntax highlighted output below.
+- The previous block hash, which links the block to the last one
 
-.. sourcecode:: ipython
+- The Merkle Root, which is a hash that summarizes the block’s transactions
 
-    In [69]: lines = plot([1,2,3])
+- The timestamp of the block
 
-    In [70]: setp(lines)
-      alpha: float
-      animated: [True | False]
-      antialiased or aa: [True | False]
-      ...snip
+- The difficulty target of the block
 
-This support is included in this template, but will also be included
-in a future version of Pygments by default.
+- Nonce, which let’s miners generate the correct hash
 
-.. _using-math:
+While the header can be used to identifies the block in relation to the previous one, the block height identifies the location of the block in the chain, with the first genesis block having a block height of zero.
 
-Using math
-==========
+While blockchains have predetermined sets of rules established by the protocol, these mechanics can be modified in events call a fork. You can compare the fork to a software update that the majority of the community agrees on. A hard fork is not compatible to previous versions, typically changing consensus rules such as protocol or block size. A soft fork in comparison is compatible with previous versions of the blockchain.
 
-In sphinx you can include inline math :math:`x\leftarrow y\ x\forall
-y\ x-y` or display math
+Smart Contracts
+=============================
+While the Bitcoin blockchain was built for the single application of the blockchain as a decentralized currency, the Ethereum blockchain opened up an ecosystem for a variety decentralized applications. The introduction of programmable smart contracts is what powers this ecosystem.
 
-.. math::
+A smart contract is a piece of code which runs on top of the blockchain that operates on arbitrary rules. It is auto-enforceable code which does not require a third party to activate or oversee. They have the attributes of a contractual agreement but should not be confused as a contract in the legal sense. It is more comparable to a if-then mechanism like a vending machine: put money in, get a soda out. Smart contract flow can be broken down as:
 
-  W^{3\beta}_{\delta_1 \rho_1 \sigma_2} = U^{3\beta}_{\delta_1 \rho_1} + \frac{1}{8 \pi 2} \int^{\alpha_2}_{\alpha_2} d \alpha^\prime_2 \left[\frac{ U^{2\beta}_{\delta_1 \rho_1} - \alpha^\prime_2U^{1\beta}_{\rho_1 \sigma_2} }{U^{0\beta}_{\rho_1 \sigma_2}}\right]
+1) Creation of smart contract code which defines terms
 
-To include math in your document, just use the math directive; here is
-a simpler equation::
+2) Define events that trigger execution of Smart Contract
 
-    .. math::
+3) Execution of smart contract based on interaction or information received
 
-      W^{3\beta}_{\delta_1 \rho_1 \sigma_2} \approx U^{3\beta}_{\delta_1 \rho_1}
+4) Settlement of assets, such as cryptocurrencies or real life events
 
-which is rendered as
+Let’s look at a decentralized apartment leasing use case for smart contracts. Alice rents an apartment, owned by Bob, with a lock connected to the blockchain via smart contract. The smart contract dictates that if Alice pays rent, the lock remains unlocked. If she does not pay rent on time, Alice is locked out of her apartment. In this example, despite owning the apartment, Bob does not facilitate the rental/lock process. The process is greatly streamlined, and removes any potential issues of Bob locking Alice out despite her paying rent since its governed by auto-enforced code.
 
-.. math::
+Smart contracts reduce transaction costs through machine consensus and auto-enforced code. They bypass principal-agent problems, and establish trust in trustless environments.
 
-   W^{3\beta}_{\delta_1 \rho_1 \sigma_2} \approx U^{3\beta}_{\delta_1 \rho_1}
+Additional Resources
+=============================
+`Public Key Encryption <https://en.wikipedia.org/wiki/Public-key_cryptography/>`_
 
-Recent versions of Sphinx include built-in support for math.
-There are three flavors:
+`Elliptic Curve Cryptography <https://en.wikipedia.org/wiki/Elliptic-curve_cryptography/>`_
 
-  - sphinx.ext.imgmath: uses dvipng to render the equation
+`P2P Network <https://en.wikipedia.org/wiki/Peer-to-peer/>`_
 
-  - sphinx.ext.mathjax: renders the math in the browser using Javascript
+`Game Theory <https://blockgeeks.com/guides/cryptocurrency-game-theory//>`_
 
-  - sphinx.ext.jsmath: it's an older code, but it checks out
+`Merkle Trees <https://hackernoon.com/merkle-trees-181cb4bc30b4/>`_
 
-Additionally, matplotlib has its own math support:
+`Forks <https://blockgeeks.com/guides/what-is-ethereum-classic/ />`_
 
-  - matplotlib.sphinxext.mathmpl
+`Smart Contracts <https://blockchainhub.net/smart-contracts//>`_
 
-See the matplotlib `mathtext guide
-<https://matplotlib.org/users/mathtext.html>`_ for lots
-more information on writing mathematical expressions in matplotlib.
-
-.. _pyplots:
-
-Inserting matplotlib plots
-==========================
-
-Inserting automatically-generated plots is easy.  Simply put the
-script to generate the plot in the :file:`pyplots` directory, and
-refer to it using the ``plot`` directive.  First make a
-:file:`pyplots` directory at the top level of your project (next to
-:``conf.py``) and copy the :file:`ellipses.py`` file into it::
-
-    home:~/tmp/sampledoc> mkdir pyplots
-    home:~/tmp/sampledoc> cp ../sampledoc_tut/pyplots/ellipses.py pyplots/
-
-
-You can refer to this file in your sphinx documentation; by default it
-will just inline the plot with links to the source and PF and high
-resolution PNGS.  To also include the source code for the plot in the
-document, pass the ``include-source`` parameter::
-
-  .. plot:: pyplots/ellipses.py
-     :include-source:
-
-In the HTML version of the document, the plot includes links to the
-original source code, a high-resolution PNG and a PDF.  In the PDF
-version of the document, the plot is included as a scalable PDF.
-
-.. plot:: pyplots/ellipses.py
-   :include-source:
-
-
-You can also inline code for plots directly, and the code will be
-executed at documentation build time and the figure inserted into your
-docs; the following code::
-
-   .. plot::
-
-      import matplotlib.pyplot as plt
-      import numpy as np
-      x = np.random.randn(1000)
-      plt.hist( x, 20)
-      plt.grid()
-      plt.title(r'Normal: $\mu=%.2f, \sigma=%.2f$'%(x.mean(), x.std()))
-      plt.show()
-
-produces this output:
-
-.. plot::
-
-    import matplotlib.pyplot as plt
-    import numpy as np
-    x = np.random.randn(1000)
-    plt.hist( x, 20)
-    plt.grid()
-    plt.title(r'Normal: $\mu=%.2f, \sigma=%.2f$'%(x.mean(), x.std()))
-    plt.show()
-
-
-See the matplotlib `pyplot tutorial
-<https://matplotlib.org/users/pyplot_tutorial.html>`_ and
-the `gallery <https://matplotlib.org/gallery.html>`_ for
-lots of examples of matplotlib plots.
-
-Inheritance diagrams
-====================
-
-Inheritance diagrams can be inserted directly into the document by
-providing a list of class or module names to the
-``inheritance-diagram`` directive.
-
-For example::
-
-  .. inheritance-diagram:: codecs
-
-produces:
-
-.. inheritance-diagram:: codecs
-
-
-See the :ref:`ipython_directive` for a tutorial on embedding stateful,
-matplotlib aware ipython sessions into your rest docs with multiline
-and doctest support.
-
-.. _extensions-literal:
-
-This file
-=========
-
-.. literalinclude:: extensions.rst
-
-
+`Ethereum Whitepaper <https://github.com/ethereum/wiki/wiki/White-Paper />`_

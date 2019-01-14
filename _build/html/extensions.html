@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Sphinx extensions for embedded plots, math and more &#8212; Tezos Capstone January 11, 2019 documentation</title>
+    <title>Part 3: Blockchain 201 &#8212; Tezos Capstone January 11, 2019 documentation</title>
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,7 +14,6 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
   </head><body>
@@ -39,12 +38,11 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Sphinx extensions for embedded plots, math and more</a><ul>
-<li><a class="reference internal" href="#ipython-sessions">ipython sessions</a></li>
-<li><a class="reference internal" href="#using-math">Using math</a></li>
-<li><a class="reference internal" href="#inserting-matplotlib-plots">Inserting matplotlib plots</a></li>
-<li><a class="reference internal" href="#inheritance-diagrams">Inheritance diagrams</a></li>
-<li><a class="reference internal" href="#this-file">This file</a></li>
+<li><a class="reference internal" href="#">Part 3: Blockchain 201</a><ul>
+<li><a class="reference internal" href="#cryptographic-fundamentals">Cryptographic Fundamentals</a></li>
+<li><a class="reference internal" href="#blockchain-technicals">Blockchain Technicals</a></li>
+<li><a class="reference internal" href="#smart-contracts">Smart Contracts</a></li>
+<li><a class="reference internal" href="#additional-resources">Additional Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -76,394 +74,62 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="sphinx-extensions-for-embedded-plots-math-and-more">
-<span id="extensions"></span><h1>Sphinx extensions for embedded plots, math and more<a class="headerlink" href="#sphinx-extensions-for-embedded-plots-math-and-more" title="Permalink to this headline">¶</a></h1>
-<p>Sphinx is written in python, and supports the ability to write custom
-extensions.  We’ve written a few for the matplotlib documentation,
-some of which are part of matplotlib itself in the
-matplotlib.sphinxext module, some of which are included only in the
-sphinx doc directory, and there are other extensions written by other
-groups, eg numpy and ipython.  We’re collecting these in this tutorial
-and showing you how to install and use them for your own project.
-First let’s grab the python extension files from the <code class="file docutils literal notranslate"><span class="pre">sphinxext</span></code>
-directory from git (see <span class="xref std std-ref">fetching-the-data</span>), and install them in
-our <code class="file docutils literal notranslate"><span class="pre">sampledoc</span></code> project <code class="file docutils literal notranslate"><span class="pre">sphinxext</span></code> directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">sampledoc</span><span class="o">&gt;</span> <span class="n">mkdir</span> <span class="n">sphinxext</span>
-<span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">sampledoc</span><span class="o">&gt;</span> <span class="n">cp</span> <span class="o">../</span><span class="n">sampledoc_tut</span><span class="o">/</span><span class="n">sphinxext</span><span class="o">/*.</span><span class="n">py</span> <span class="n">sphinxext</span><span class="o">/</span>
-<span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">sampledoc</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="n">sphinxext</span><span class="o">/</span>
-<span class="n">apigen</span><span class="o">.</span><span class="n">py</span>  <span class="n">docscrape</span><span class="o">.</span><span class="n">py</span>  <span class="n">docscrape_sphinx</span><span class="o">.</span><span class="n">py</span>  <span class="n">numpydoc</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-<p>In addition to the builtin matplotlib extensions for embedding pyplot
-plots and rendering math with matplotlib’s native math engine, we also
-have extensions for syntax highlighting ipython sessions, making
-inhertiance diagrams, and more.</p>
-<p>We need to inform sphinx of our new extensions in the <code class="file docutils literal notranslate"><span class="pre">conf.py</span></code>
-file by adding the following.  First we tell it where to find the extensions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># If your extensions are in another directory, add it here. If the</span>
-<span class="c1"># directory is relative to the documentation root, use</span>
-<span class="c1"># os.path.abspath to make it absolute, like shown here.</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;sphinxext&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>And then we tell it what extensions to load:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add any Sphinx extension module names here, as strings. They can be extensions</span>
-<span class="c1"># coming with Sphinx (named &#39;sphinx.ext.*&#39;) or your custom ones.</span>
-<span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;matplotlib.sphinxext.only_directives&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;matplotlib.sphinxext.plot_directive&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;IPython.sphinxext.ipython_directive&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;IPython.sphinxext.ipython_console_highlighting&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;sphinx.ext.mathjax&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;sphinx.ext.autodoc&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;sphinx.ext.doctest&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;sphinx.ext.inheritance_diagram&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;numpydoc&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>Now let’s look at some of these in action.  You can see the literal
-source for this file at <a class="reference internal" href="#extensions-literal"><span class="std std-ref">This file</span></a>.</p>
-<div class="section" id="ipython-sessions">
-<span id="ipython-highlighting"></span><h2>ipython sessions<a class="headerlink" href="#ipython-sessions" title="Permalink to this headline">¶</a></h2>
-<p>Michael Droettboom contributed a sphinx extension which does <a class="reference external" href="http://pygments.org">pygments</a> syntax highlighting on <a class="reference external" href="http://ipython.scipy.org">ipython</a> sessions.  Just use ipython as the
-language in the <code class="docutils literal notranslate"><span class="pre">sourcecode</span></code> directive:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">sourcecode</span><span class="p">::</span> <span class="n">ipython</span>
-
-    <span class="n">In</span> <span class="p">[</span><span class="mi">69</span><span class="p">]:</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-
-    <span class="n">In</span> <span class="p">[</span><span class="mi">70</span><span class="p">]:</span> <span class="n">setp</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
-      <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span>
-      <span class="n">animated</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span> <span class="o">|</span> <span class="kc">False</span><span class="p">]</span>
-      <span class="n">antialiased</span> <span class="ow">or</span> <span class="n">aa</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span> <span class="o">|</span> <span class="kc">False</span><span class="p">]</span>
-      <span class="o">...</span><span class="n">snip</span>
-</pre></div>
-</div>
-<p>and you will get the syntax highlighted output below.</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span>In [69]: lines = plot([1,2,3])
-
-In [70]: setp(lines)
-  alpha: float
-  animated: [True | False]
-  antialiased or aa: [True | False]
-  ...snip
-</pre></div>
-</div>
-<p>This support is included in this template, but will also be included
-in a future version of Pygments by default.</p>
-</div>
-<div class="section" id="using-math">
-<span id="id1"></span><h2>Using math<a class="headerlink" href="#using-math" title="Permalink to this headline">¶</a></h2>
-<p>In sphinx you can include inline math <span class="math notranslate nohighlight">\(x\leftarrow y\ x\forall
-y\ x-y\)</span> or display math</p>
-<div class="math notranslate nohighlight">
-\[W^{3\beta}_{\delta_1 \rho_1 \sigma_2} = U^{3\beta}_{\delta_1 \rho_1} + \frac{1}{8 \pi 2} \int^{\alpha_2}_{\alpha_2} d \alpha^\prime_2 \left[\frac{ U^{2\beta}_{\delta_1 \rho_1} - \alpha^\prime_2U^{1\beta}_{\rho_1 \sigma_2} }{U^{0\beta}_{\rho_1 \sigma_2}}\right]\]</div>
-<p>To include math in your document, just use the math directive; here is
-a simpler equation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">math</span><span class="p">::</span>
-
-  <span class="n">W</span><span class="o">^</span><span class="p">{</span><span class="mi">3</span>\<span class="n">beta</span><span class="p">}</span><span class="n">_</span><span class="p">{</span>\<span class="n">delta_1</span> \<span class="n">rho_1</span> \<span class="n">sigma_2</span><span class="p">}</span> \<span class="n">approx</span> <span class="n">U</span><span class="o">^</span><span class="p">{</span><span class="mi">3</span>\<span class="n">beta</span><span class="p">}</span><span class="n">_</span><span class="p">{</span>\<span class="n">delta_1</span> \<span class="n">rho_1</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>which is rendered as</p>
-<div class="math notranslate nohighlight">
-\[W^{3\beta}_{\delta_1 \rho_1 \sigma_2} \approx U^{3\beta}_{\delta_1 \rho_1}\]</div>
-<p>Recent versions of Sphinx include built-in support for math.
-There are three flavors:</p>
-<blockquote>
-<div><ul class="simple">
-<li>sphinx.ext.imgmath: uses dvipng to render the equation</li>
-<li>sphinx.ext.mathjax: renders the math in the browser using Javascript</li>
-<li>sphinx.ext.jsmath: it’s an older code, but it checks out</li>
+  <div class="section" id="part-3-blockchain-201">
+<span id="emacs-help"></span><h1>Part 3: Blockchain 201<a class="headerlink" href="#part-3-blockchain-201" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="cryptographic-fundamentals">
+<h2>Cryptographic Fundamentals<a class="headerlink" href="#cryptographic-fundamentals" title="Permalink to this headline">¶</a></h2>
+<p>Despite being an emerging technology, blockchain is not built on anything new, but on existing technology and theories like cryptography. There are three main concepts to power blockchain: Cryptography, P2P networks and Game Theory/Protocol.</p>
+<p>Cryptography is the backbone of the blockchain, providing the security infrastructure needed for participants to securely access data as well as protect it from tampering. At its root, cryptography is the art of exchanging a message between two parties without the message being compromised or revealed. You may be familiar with cryptographic techniques like a substitution cipher, replacing a letter with another, or transposition ciphers, rearranging letters in a different order. Historically, cryptography has been used in war to prevent messages from falling into enemy hands, having given birth to complex computational ciphers like the German Enigma in World War II. Blockchain utilizes asymmetric cryptography, also known as public key cryptography.</p>
+<p>Public key cryptography utilizes both public and private keys to encrypt data. These keys are just long strings of numbers that are paired together, but are not identical. The public key can be shared with anyone, while the private is kept secret to just the owner. Any message encrypted with the public key can only be decrypted with the corresponding private key, and vice versa.</p>
+<p>Let’s look at an example of public key cryptography. Bob and Alice have special envelopes (public key) that each have a corresponding key (private key). Bob and Alice both have the keys to their respective envelopes so that they are the only ones that can open them up. Neither wants anyone to read their messages so Alice sends her envelope to Bob to enclose his letter. Bob seals the envelope with the letter, and ships it back to Alice, who opens it with her key and reads the contents.</p>
+<p>Like any cryptography, public key encryptions are vulnerable to brute force attacks. This means that the private key can be guessed by method of guessing every possible combination, with attack speed being proportional to computing power. Brute force methods can take years or decades to crack secure encryptions.</p>
+<p>P2P (Peer 2 Peer) networks allow the blockchain to operate as a decentralized system. In a P2P network, participants utilize and provide the infrastructure for the network. These participants are classified as nodes, and can offer different resources to support the network such as storage, computing power and bandwidth. This allows P2P networks to be sustained without the need of a centralized entity. In blockchain, a miner, also known as a full node, stores the entire blockchain information. In case, the blockchain network is attacked and information is loss, as long as there is one full node, the network can be restored.</p>
+<p>Game Theory is essential in blockchain to provide incentives for participants in the network. Game theory studies mathematical models between rational parties, covering strategies and incentives. Correct incentive models encourage people to participate in the system, and discourage cheating or malicious actions.</p>
+<p>In the Bitcoin blockchain, game theory is heavily embedded in the mining system. Miners can cheat in using these methods:</p>
+<ul class="simple">
+<li>Add an invalid block and transactions to receive more BTC</li>
+<li>Mine on top of an invalid or suboptimal blocks</li>
 </ul>
-</div></blockquote>
-<p>Additionally, matplotlib has its own math support:</p>
-<blockquote>
-<div><ul class="simple">
-<li>matplotlib.sphinxext.mathmpl</li>
+<p>The Bitcoin blockchain ecosystem is designed so that coins mined from invalid blocks hold little to no value. This discourages miners from adding invalid blocks as they will be wasting computational power on a useless asset. Since parties that join a blockchain cannot be inherently trusted, it is essential to consider game theory and incentives when building a blockchain.</p>
+</div>
+<div class="section" id="blockchain-technicals">
+<h2>Blockchain Technicals<a class="headerlink" href="#blockchain-technicals" title="Permalink to this headline">¶</a></h2>
+<p>After covering the theory for blockchain, let’s delve into the technicals on how the blockchain works. The blockchain is a linked series of blocks, with the oldest/first block known as the genesis block. Each block is composed of two parts: the block header which stores metadata for identification and references to link it to the previous block, and a list of transactions.</p>
+<p>The Bitcoin blockchain header contains six fields:</p>
+<ul class="simple">
+<li>The Bitcoin version number</li>
+<li>The previous block hash, which links the block to the last one</li>
+<li>The Merkle Root, which is a hash that summarizes the block’s transactions</li>
+<li>The timestamp of the block</li>
+<li>The difficulty target of the block</li>
+<li>Nonce, which let’s miners generate the correct hash</li>
 </ul>
-</div></blockquote>
-<p>See the matplotlib <a class="reference external" href="https://matplotlib.org/users/mathtext.html">mathtext guide</a> for lots
-more information on writing mathematical expressions in matplotlib.</p>
+<p>While the header can be used to identifies the block in relation to the previous one, the block height identifies the location of the block in the chain, with the first genesis block having a block height of zero.</p>
+<p>While blockchains have predetermined sets of rules established by the protocol, these mechanics can be modified in events call a fork. You can compare the fork to a software update that the majority of the community agrees on. A hard fork is not compatible to previous versions, typically changing consensus rules such as protocol or block size. A soft fork in comparison is compatible with previous versions of the blockchain.</p>
 </div>
-<div class="section" id="inserting-matplotlib-plots">
-<span id="pyplots"></span><h2>Inserting matplotlib plots<a class="headerlink" href="#inserting-matplotlib-plots" title="Permalink to this headline">¶</a></h2>
-<p>Inserting automatically-generated plots is easy.  Simply put the
-script to generate the plot in the <code class="file docutils literal notranslate"><span class="pre">pyplots</span></code> directory, and
-refer to it using the <code class="docutils literal notranslate"><span class="pre">plot</span></code> directive.  First make a
-<code class="file docutils literal notranslate"><span class="pre">pyplots</span></code> directory at the top level of your project (next to
-:<code class="docutils literal notranslate"><span class="pre">conf.py</span></code>) and copy the <code class="file docutils literal notranslate"><span class="pre">ellipses.py`</span></code> file into it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">sampledoc</span><span class="o">&gt;</span> <span class="n">mkdir</span> <span class="n">pyplots</span>
-<span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">sampledoc</span><span class="o">&gt;</span> <span class="n">cp</span> <span class="o">../</span><span class="n">sampledoc_tut</span><span class="o">/</span><span class="n">pyplots</span><span class="o">/</span><span class="n">ellipses</span><span class="o">.</span><span class="n">py</span> <span class="n">pyplots</span><span class="o">/</span>
-</pre></div>
+<div class="section" id="smart-contracts">
+<h2>Smart Contracts<a class="headerlink" href="#smart-contracts" title="Permalink to this headline">¶</a></h2>
+<p>While the Bitcoin blockchain was built for the single application of the blockchain as a decentralized currency, the Ethereum blockchain opened up an ecosystem for a variety decentralized applications. The introduction of programmable smart contracts is what powers this ecosystem.</p>
+<p>A smart contract is a piece of code which runs on top of the blockchain that operates on arbitrary rules. It is auto-enforceable code which does not require a third party to activate or oversee. They have the attributes of a contractual agreement but should not be confused as a contract in the legal sense. It is more comparable to a if-then mechanism like a vending machine: put money in, get a soda out. Smart contract flow can be broken down as:</p>
+<ol class="arabic simple">
+<li>Creation of smart contract code which defines terms</li>
+<li>Define events that trigger execution of Smart Contract</li>
+<li>Execution of smart contract based on interaction or information received</li>
+<li>Settlement of assets, such as cryptocurrencies or real life events</li>
+</ol>
+<p>Let’s look at a decentralized apartment leasing use case for smart contracts. Alice rents an apartment, owned by Bob, with a lock connected to the blockchain via smart contract. The smart contract dictates that if Alice pays rent, the lock remains unlocked. If she does not pay rent on time, Alice is locked out of her apartment. In this example, despite owning the apartment, Bob does not facilitate the rental/lock process. The process is greatly streamlined, and removes any potential issues of Bob locking Alice out despite her paying rent since its governed by auto-enforced code.</p>
+<p>Smart contracts reduce transaction costs through machine consensus and auto-enforced code. They bypass principal-agent problems, and establish trust in trustless environments.</p>
 </div>
-<p>You can refer to this file in your sphinx documentation; by default it
-will just inline the plot with links to the source and PF and high
-resolution PNGS.  To also include the source code for the plot in the
-document, pass the <code class="docutils literal notranslate"><span class="pre">include-source</span></code> parameter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">plot</span><span class="p">::</span> <span class="n">pyplots</span><span class="o">/</span><span class="n">ellipses</span><span class="o">.</span><span class="n">py</span>
-   <span class="p">:</span><span class="n">include</span><span class="o">-</span><span class="n">source</span><span class="p">:</span>
-</pre></div>
-</div>
-<p>In the HTML version of the document, the plot includes links to the
-original source code, a high-resolution PNG and a PDF.  In the PDF
-version of the document, the plot is included as a scalable PDF.</p>
-<p>You can also inline code for plots directly, and the code will be
-executed at documentation build time and the figure inserted into your
-docs; the following code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">plot</span><span class="p">::</span>
-
-   <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-   <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-   <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-   <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
-   <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
-   <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Normal: $\mu=</span><span class="si">%.2f</span><span class="s1">, \sigma=</span><span class="si">%.2f</span><span class="s1">$&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()))</span>
-   <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>produces this output:</p>
-<p>See the matplotlib <a class="reference external" href="https://matplotlib.org/users/pyplot_tutorial.html">pyplot tutorial</a> and
-the <a class="reference external" href="https://matplotlib.org/gallery.html">gallery</a> for
-lots of examples of matplotlib plots.</p>
-</div>
-<div class="section" id="inheritance-diagrams">
-<h2>Inheritance diagrams<a class="headerlink" href="#inheritance-diagrams" title="Permalink to this headline">¶</a></h2>
-<p>Inheritance diagrams can be inserted directly into the document by
-providing a list of class or module names to the
-<code class="docutils literal notranslate"><span class="pre">inheritance-diagram</span></code> directive.</p>
-<p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">inheritance</span><span class="o">-</span><span class="n">diagram</span><span class="p">::</span> <span class="n">codecs</span>
-</pre></div>
-</div>
-<p>produces:</p>
-<p>See the <a class="reference internal" href="ipython_directive.html#ipython-directive"><span class="std std-ref">IPython Directive</span></a> for a tutorial on embedding stateful,
-matplotlib aware ipython sessions into your rest docs with multiline
-and doctest support.</p>
-</div>
-<div class="section" id="this-file">
-<span id="extensions-literal"></span><h2>This file<a class="headerlink" href="#this-file" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.. _extensions:
-
-****************************************************
-Sphinx extensions for embedded plots, math and more
-****************************************************
-
-Sphinx is written in python, and supports the ability to write custom
-extensions.  We&#39;ve written a few for the matplotlib documentation,
-some of which are part of matplotlib itself in the
-matplotlib.sphinxext module, some of which are included only in the
-sphinx doc directory, and there are other extensions written by other
-groups, eg numpy and ipython.  We&#39;re collecting these in this tutorial
-and showing you how to install and use them for your own project.
-First let&#39;s grab the python extension files from the :file:`sphinxext`
-directory from git (see :ref:`fetching-the-data`), and install them in
-our :file:`sampledoc` project :file:`sphinxext` directory::
-
-    home:~/tmp/sampledoc&gt; mkdir sphinxext
-    home:~/tmp/sampledoc&gt; cp ../sampledoc_tut/sphinxext/*.py sphinxext/
-    home:~/tmp/sampledoc&gt; ls sphinxext/
-    apigen.py  docscrape.py  docscrape_sphinx.py  numpydoc.py
-
-In addition to the builtin matplotlib extensions for embedding pyplot
-plots and rendering math with matplotlib&#39;s native math engine, we also
-have extensions for syntax highlighting ipython sessions, making
-inhertiance diagrams, and more.
-
-We need to inform sphinx of our new extensions in the :file:`conf.py`
-file by adding the following.  First we tell it where to find the extensions::
-
-    # If your extensions are in another directory, add it here. If the
-    # directory is relative to the documentation root, use
-    # os.path.abspath to make it absolute, like shown here.
-    sys.path.append(os.path.abspath(&#39;sphinxext&#39;))
-
-And then we tell it what extensions to load::
-
-    # Add any Sphinx extension module names here, as strings. They can be extensions
-    # coming with Sphinx (named &#39;sphinx.ext.*&#39;) or your custom ones.
-    extensions = [&#39;matplotlib.sphinxext.only_directives&#39;,
-                  &#39;matplotlib.sphinxext.plot_directive&#39;,
-                  &#39;IPython.sphinxext.ipython_directive&#39;,
-                  &#39;IPython.sphinxext.ipython_console_highlighting&#39;,
-                  &#39;sphinx.ext.mathjax&#39;,
-                  &#39;sphinx.ext.autodoc&#39;,
-                  &#39;sphinx.ext.doctest&#39;,
-                  &#39;sphinx.ext.inheritance_diagram&#39;,
-                  &#39;numpydoc&#39;]
-
-Now let&#39;s look at some of these in action.  You can see the literal
-source for this file at :ref:`extensions-literal`.
-
-.. _ipython-highlighting:
-
-ipython sessions
-================
-
-Michael Droettboom contributed a sphinx extension which does `pygments
-&lt;http://pygments.org&gt;`_ syntax highlighting on `ipython
-&lt;http://ipython.scipy.org&gt;`_ sessions.  Just use ipython as the
-language in the ``sourcecode`` directive::
-
-    .. sourcecode:: ipython
-
-        In [69]: lines = plot([1,2,3])
-
-        In [70]: setp(lines)
-          alpha: float
-          animated: [True | False]
-          antialiased or aa: [True | False]
-          ...snip
-
-
-and you will get the syntax highlighted output below.
-
-.. sourcecode:: ipython
-
-    In [69]: lines = plot([1,2,3])
-
-    In [70]: setp(lines)
-      alpha: float
-      animated: [True | False]
-      antialiased or aa: [True | False]
-      ...snip
-
-This support is included in this template, but will also be included
-in a future version of Pygments by default.
-
-.. _using-math:
-
-Using math
-==========
-
-In sphinx you can include inline math :math:`x\leftarrow y\ x\forall
-y\ x-y` or display math
-
-.. math::
-
-  W^{3\beta}_{\delta_1 \rho_1 \sigma_2} = U^{3\beta}_{\delta_1 \rho_1} + \frac{1}{8 \pi 2} \int^{\alpha_2}_{\alpha_2} d \alpha^\prime_2 \left[\frac{ U^{2\beta}_{\delta_1 \rho_1} - \alpha^\prime_2U^{1\beta}_{\rho_1 \sigma_2} }{U^{0\beta}_{\rho_1 \sigma_2}}\right]
-
-To include math in your document, just use the math directive; here is
-a simpler equation::
-
-    .. math::
-
-      W^{3\beta}_{\delta_1 \rho_1 \sigma_2} \approx U^{3\beta}_{\delta_1 \rho_1}
-
-which is rendered as
-
-.. math::
-
-   W^{3\beta}_{\delta_1 \rho_1 \sigma_2} \approx U^{3\beta}_{\delta_1 \rho_1}
-
-Recent versions of Sphinx include built-in support for math.
-There are three flavors:
-
-  - sphinx.ext.imgmath: uses dvipng to render the equation
-
-  - sphinx.ext.mathjax: renders the math in the browser using Javascript
-
-  - sphinx.ext.jsmath: it&#39;s an older code, but it checks out
-
-Additionally, matplotlib has its own math support:
-
-  - matplotlib.sphinxext.mathmpl
-
-See the matplotlib `mathtext guide
-&lt;https://matplotlib.org/users/mathtext.html&gt;`_ for lots
-more information on writing mathematical expressions in matplotlib.
-
-.. _pyplots:
-
-Inserting matplotlib plots
-==========================
-
-Inserting automatically-generated plots is easy.  Simply put the
-script to generate the plot in the :file:`pyplots` directory, and
-refer to it using the ``plot`` directive.  First make a
-:file:`pyplots` directory at the top level of your project (next to
-:``conf.py``) and copy the :file:`ellipses.py`` file into it::
-
-    home:~/tmp/sampledoc&gt; mkdir pyplots
-    home:~/tmp/sampledoc&gt; cp ../sampledoc_tut/pyplots/ellipses.py pyplots/
-
-
-You can refer to this file in your sphinx documentation; by default it
-will just inline the plot with links to the source and PF and high
-resolution PNGS.  To also include the source code for the plot in the
-document, pass the ``include-source`` parameter::
-
-  .. plot:: pyplots/ellipses.py
-     :include-source:
-
-In the HTML version of the document, the plot includes links to the
-original source code, a high-resolution PNG and a PDF.  In the PDF
-version of the document, the plot is included as a scalable PDF.
-
-.. plot:: pyplots/ellipses.py
-   :include-source:
-
-
-You can also inline code for plots directly, and the code will be
-executed at documentation build time and the figure inserted into your
-docs; the following code::
-
-   .. plot::
-
-      import matplotlib.pyplot as plt
-      import numpy as np
-      x = np.random.randn(1000)
-      plt.hist( x, 20)
-      plt.grid()
-      plt.title(r&#39;Normal: $\mu=%.2f, \sigma=%.2f$&#39;%(x.mean(), x.std()))
-      plt.show()
-
-produces this output:
-
-.. plot::
-
-    import matplotlib.pyplot as plt
-    import numpy as np
-    x = np.random.randn(1000)
-    plt.hist( x, 20)
-    plt.grid()
-    plt.title(r&#39;Normal: $\mu=%.2f, \sigma=%.2f$&#39;%(x.mean(), x.std()))
-    plt.show()
-
-
-See the matplotlib `pyplot tutorial
-&lt;https://matplotlib.org/users/pyplot_tutorial.html&gt;`_ and
-the `gallery &lt;https://matplotlib.org/gallery.html&gt;`_ for
-lots of examples of matplotlib plots.
-
-Inheritance diagrams
-====================
-
-Inheritance diagrams can be inserted directly into the document by
-providing a list of class or module names to the
-``inheritance-diagram`` directive.
-
-For example::
-
-  .. inheritance-diagram:: codecs
-
-produces:
-
-.. inheritance-diagram:: codecs
-
-
-See the :ref:`ipython_directive` for a tutorial on embedding stateful,
-matplotlib aware ipython sessions into your rest docs with multiline
-and doctest support.
-
-.. _extensions-literal:
-
-This file
-=========
-
-.. literalinclude:: extensions.rst
-
-
-</pre></div>
-</div>
+<div class="section" id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Public-key_cryptography/">Public Key Encryption</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic-curve_cryptography/">Elliptic Curve Cryptography</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Peer-to-peer/">P2P Network</a></p>
+<p><a class="reference external" href="https://blockgeeks.com/guides/cryptocurrency-game-theory//">Game Theory</a></p>
+<p><a class="reference external" href="https://hackernoon.com/merkle-trees-181cb4bc30b4/">Merkle Trees</a></p>
+<p><a class="reference external" href="https://blockgeeks.com/guides/what-is-ethereum-classic//">Forks</a></p>
+<p><a class="reference external" href="https://blockchainhub.net/smart-contracts//">Smart Contracts</a></p>
+<p><a class="reference external" href="https://github.com/ethereum/wiki/wiki/White-Paper/">Ethereum Whitepaper</a></p>
 </div>
 </div>
 
