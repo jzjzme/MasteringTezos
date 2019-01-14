@@ -14,6 +14,8 @@ Section 2 begins in February and covers building smart contracts and a dApp. Thi
 
 Section 3 begins in March, and is building your own dApp! We will be supplying mentors to help you overcome any technical challenges.
 
+Capstone Content
+==================
 .. only:: html
 
 .. toctree::
