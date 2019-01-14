@@ -22,7 +22,9 @@ Capstone Content
    :maxdepth: 2
 
    getting_started.rst
+
    custom_look.rst
+
    emacs_help.rst
 
 
