@@ -1,4 +1,4 @@
-.. _custom_look:
+.. _part2:
 
 
 ******************************************
@@ -111,4 +111,4 @@ Additional readings
 
 Next Part
 -----------------
-:ref:`emacs_help`.
+:ref:`part3`.

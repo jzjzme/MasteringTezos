@@ -86,3 +86,7 @@ Additional readings
 `Smart Contracts <https://blockchainhub.net/smart-contracts//>`_
 
 `Ethereum Whitepaper <https://github.com/ethereum/wiki/wiki/White-Paper />`_
+
+Next Part
+-----------------
+:ref:`ipython_directive`.

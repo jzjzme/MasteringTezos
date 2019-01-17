@@ -1,4 +1,4 @@
-.. _custom_look:
+.. _part2:
 
 
 ******************************************
@@ -108,3 +108,7 @@ Additional readings
 `Byzantine General Problem <https://marknelson.us/posts/2007/07/23/byzantine.html/>`_
 
 `51% Attack and Double Spending <https://medium.com/coinmonks/what-is-a-51-attack-or-double-spend-attack-aa108db63474/>`_
+
+Next Part
+-----------------
+:ref:`part3`.

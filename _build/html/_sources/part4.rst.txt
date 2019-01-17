@@ -1,4 +1,4 @@
-.. _ipython_directive:
+.. _part4:
 
 ***************
 Part 4: Introduction to Tezos Pt 2

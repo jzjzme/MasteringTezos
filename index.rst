@@ -21,11 +21,11 @@ Capstone Content
 .. toctree::
    :maxdepth: 2
 
-   getting_started.rst
+   part1.rst
+   part2.rst
+   part3.rst
+   part4.rst
 
-   custom_look.rst
-
-   emacs_help.rst
 
 
 Search Tool
