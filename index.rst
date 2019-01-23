@@ -25,6 +25,7 @@ Capstone Content
    part2.rst
    part3.rst
    part4.rst
+   part5.rst
 
 
 
