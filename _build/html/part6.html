@@ -1,0 +1,204 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Installing and Running your own Tezos node &#8212; Tezos Capstone January 11, 2019 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="index.html"><h1 style="font-size: 3em;">Tezos Capstone</h1></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing and Running your own Tezos node</a><ul>
+<li><a class="reference internal" href="#how-to-get-tezos">How to get Tezos</a><ul>
+<li><a class="reference internal" href="#docker-images">Docker images</a></li>
+<li><a class="reference internal" href="#build-from-sources">Build from sources</a><ul>
+<li><a class="reference internal" href="#environment">Environment</a></li>
+<li><a class="reference internal" href="#get-the-sources">Get the sources</a></li>
+<li><a class="reference internal" href="#install-opam">Install OPAM</a></li>
+<li><a class="reference internal" href="#install-tezos-dependencies-with-opam">Install Tezos dependencies with OPAM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/part6.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installing-and-running-your-own-tezos-node">
+<span id="part6"></span><h1>Installing and Running your own Tezos node<a class="headerlink" href="#installing-and-running-your-own-tezos-node" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="how-to-get-tezos">
+<h2>How to get Tezos<a class="headerlink" href="#how-to-get-tezos" title="Permalink to this headline">¶</a></h2>
+<p>Let’s look into downloading Tezos and getting it to run. You can either use the docker images, which is easier, or build from
+sources.</p>
+<div class="section" id="docker-images">
+<h3>Docker images<a class="headerlink" href="#docker-images" title="Permalink to this headline">¶</a></h3>
+<p>The recommended way for running an up-to-date Tezos node is to use the docker images that are automatically generated from the GitLab repository and published on <a class="reference external" href="https://hub.docker.com/r/tezos/tezos/">DockerHub</a>. The script <code class="docutils literal notranslate"><span class="pre">alphanet.sh</span></code> is provided to help download the right image for each network and run a simple node. The only requirement is a working installation of <a class="reference external" href="https://www.docker.com/">Docker</a> and docker compose on a machine with architecture <strong>x86_64</strong>. Although it only officially supports Linux, the script has been tested with success in the past on windows/mac/linux.</p>
+<p>The same script can be used to run Mainnet, Alphanet or Zeronet, it suffices to rename it as it downloads a different image based on its name.</p>
+<p>For example, to run Alphanet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">gitlab</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">tezos</span><span class="o">/</span><span class="n">tezos</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">alphanet</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">alphanet</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Alternatively, to run Mainnet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="n">mainnet</span><span class="o">.</span><span class="n">sh</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">gitlab</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">tezos</span><span class="o">/</span><span class="n">tezos</span><span class="o">/</span><span class="n">raw</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">alphanet</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">mainnet</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>In the following we assume you are running Alphanet. You are now one step away from a working node:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">alphanet</span><span class="o">.</span><span class="n">sh</span> <span class="n">start</span>
+</pre></div>
+</div>
+<p>This will download the right docker image for your chosen network, launch 3 docker containers running the node, the baker and the endorser. The first launch might take a few minutes to download the docker images and synchronize the chain.</p>
+<p>Every call to <code class="docutils literal notranslate"><span class="pre">alphanet.sh</span></code> will check for updates of the node and will fail if your node is not up-to-date. For updating the node, simply run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">alphanet</span><span class="o">.</span><span class="n">sh</span> <span class="n">restart</span>
+</pre></div>
+</div>
+<p>If you prefer to temporarily disable automatic updates, you just have to set an environment variable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">TEZOS_ALPHANET_DO_NOT_PULL</span><span class="o">=</span><span class="n">yes</span>
+</pre></div>
+</div>
+<p>See <code class="docutils literal notranslate"><span class="pre">./alphanet.sh</span> <span class="pre">--help</span></code> for more informations about the script. In particular see <code class="docutils literal notranslate"><span class="pre">./alphanet.sh</span> <span class="pre">client</span> <span class="pre">--help</span></code> or the <span class="xref std std-ref">online manual</span> for more information about the client. Every command to the <code class="docutils literal notranslate"><span class="pre">tezos-client</span></code> can be equivalently executed using <code class="docutils literal notranslate"><span class="pre">./alphanet.sh</span> <span class="pre">client</span></code>.</p>
+</div>
+<div class="section" id="build-from-sources">
+<h3>Build from sources<a class="headerlink" href="#build-from-sources" title="Permalink to this headline">¶</a></h3>
+<p><strong>TL;DR</strong>: Typically you want to do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sudo apt install -y rsync git m4 build-essential patch unzip bubblewrap wget
+wget https://github.com/ocaml/opam/releases/download/2.0.1/opam-2.0.1-x86_64-linux
+sudo cp opam-2.0.1-x86_64-linux /usr/local/bin/opam
+sudo chmod a+x /usr/local/bin/opam
+git clone https://gitlab.com/tezos/tezos.git
+cd tezos
+git checkout alphanet
+opam init --bare
+make build-deps
+eval $(opam env)
+make
+export PATH=~/tezos:$PATH
+source ./src/bin_client/bash-completion.sh
+export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=Y
+</pre></div>
+</div>
+<div class="section" id="environment">
+<h4>Environment<a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h4>
+<p>Currently Tezos is being developed for Linux x86_64, mostly for Debian/Ubuntu and Archlinux. The following OSes are reported to work:</p>
+<ul class="simple">
+<li>macOS/x86_64</li>
+<li>Linux/armv7h (32 bits) (Raspberry Pi3, etc.)</li>
+<li>Linux/aarch64 (64 bits) (Raspberry Pi3, etc.)</li>
+</ul>
+<p>A Windows port is feasible and might be developed in the future.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">bubblewrap</span></code> is not available in your distribution you can also
+skip it and init opam with <code class="docutils literal notranslate"><span class="pre">--disable-sandbox</span></code>.</p>
+</div>
+<div class="section" id="get-the-sources">
+<h4>Get the sources<a class="headerlink" href="#get-the-sources" title="Permalink to this headline">¶</a></h4>
+<p>Tezos <em>git</em> repository is hosted at <a class="reference external" href="https://gitlab.com/tezos/tezos/">GitLab</a>. All development happens here. Do <strong>not</strong> use our <a class="reference external" href="https://github.com/tezos/tezos">GitHub mirror</a> which we don’t use anymore and only mirrors what happens on GitLab.</p>
+<p>You also need to <strong>choose the branch</strong> of the network you want to connect to: <em>alphanet</em>, <em>zeronet</em> or <em>mainnet</em>. The <em>master</em> branch is where code is merged, but there is no test network using the master branch directly.</p>
+</div>
+<div class="section" id="install-opam">
+<h4>Install OPAM<a class="headerlink" href="#install-opam" title="Permalink to this headline">¶</a></h4>
+<p>To compile Tezos, you need the <a class="reference external" href="https://opam.ocaml.org/">OPAM</a> package manager, version <em>2.0</em>. The build script will take care of setting-up OPAM, download the right version of the OCaml compiler, and so on. Use <code class="docutils literal notranslate"><span class="pre">opam</span> <span class="pre">init</span> <span class="pre">--bare</span></code> to avoid compiling the OCaml compiler now: it will be done in the next step.</p>
+</div>
+<div class="section" id="install-tezos-dependencies-with-opam">
+<h4>Install Tezos dependencies with OPAM<a class="headerlink" href="#install-tezos-dependencies-with-opam" title="Permalink to this headline">¶</a></h4>
+<p>Install the OCaml compiler and the libraries which Tezos depends on:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">build</span><span class="o">-</span><span class="n">deps</span>
+</pre></div>
+</div>
+<p>This command creates a local opam switch <code class="docutils literal notranslate"><span class="pre">_opam</span></code> where the right version of OCaml is compiled and installed (this takes a while but it’s only done once).</p>
+<p>After OCaml it will start with Tezos dependencies, OPAM is able to handle correctly the OCaml libraries but it is not always able to handle all external C libraries we depend on. On most system, it is able to suggest a call to the system package manager but it currently does not handle version check.</p>
+<p>Once the dependencies are done we can update opam’s environment to refer to the new switch and compile the project:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>eval $(opam env)
+make
+</pre></div>
+</div>
+<p>Lastly you can also add Tezos binaries to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable, activate bash autocompletion and after reading the Disclaimer a few hundred times you are allowed to disable it with <code class="docutils literal notranslate"><span class="pre">TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=Y</span></code>.</p>
+<p>To add the default opam repository at a lower priority (for example to install merlin or test other opam packages), you can use the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opam</span> <span class="n">repo</span> <span class="n">add</span> <span class="n">default</span> <span class="o">--</span><span class="n">rank</span><span class="o">=-</span><span class="mi">1</span>
+</pre></div>
+</div>
+<span class="target" id="howtouse"></span></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jackie Zhang &amp; Kent Makishima.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+  </body>
+</html>

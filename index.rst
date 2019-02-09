@@ -14,7 +14,7 @@ Section 2 begins in February and covers building smart contracts and a dApp. Thi
 
 Section 3 begins in March, and is building your own dApp! We will be supplying mentors to help you overcome any technical challenges.
 
-Capstone Content
+Capstone Content Section I
 ==================
 .. only:: html
 
@@ -27,6 +27,14 @@ Capstone Content
    part4.rst
    part5.rst
 
+Capstone Content Section II
+==================
+.. only:: html
+
+.. toctree::
+  :maxdepth: 2
+
+  part6.rst
 
 
 Search Tool
