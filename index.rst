@@ -42,7 +42,8 @@ Welcome to Tezos Capstone Section 2! In this section, we will be getting hands o
   part8.rst
   part9.rst
   part10.rst
-  part11.rst 
+  part11.rst
+  part12.rst
 
 Search Tool
 ==================

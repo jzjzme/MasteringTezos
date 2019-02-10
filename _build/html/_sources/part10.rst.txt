@@ -70,5 +70,6 @@ eztz.min.js
 The eztz library can be downloaded here: https://github.com/TezTech/eztz/blob/master/dist/eztz.min.js
 
 If you load up index.html it should look like this:
+.. image:: _static/dapp.png
 
 :ref:`part11`.
