@@ -142,16 +142,54 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="part6.html">Installing and Running your own Tezos node</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="part6.html#how-to-get-tezos">How to get Tezos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part6.html#how-to-get-tezos">How to get Tezos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="part6.html#docker-images">Docker images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part6.html#build-from-sources">Build from sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="part6.html#environment">Environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="part6.html#get-the-sources">Get the sources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="part6.html#install-opam">Install OPAM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="part6.html#install-tezos-dependencies-with-opam">Install Tezos dependencies with OPAM</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="part7.html">Using Tezos and Basic Commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="part7.html#the-binaries">The binaries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="part7.html#accessing-the-manual">Accessing the manual</a></li>
-<li class="toctree-l2"><a class="reference internal" href="part7.html#the-node">The Node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="part7.html#client">Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part7.html#the-node">The Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#node-identity">Node identity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#storage">Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#rpc-interface">RPC interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="part7.html#client">Client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#a-simple-wallet">A simple wallet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#get-free-tez">Get free tez</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#transactions">Transactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#receipts-for-operations-and-blocks">Receipts for operations and blocks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#originated-accounts-and-contracts">Originated accounts and Contracts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#gas-and-storage-cost-model">Gas and storage cost model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#validation">Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#using-rpcs">Using RPCs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="part7.html#how-to-run-tezos">How to run Tezos</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="part7.html#delegating-your-coins">Delegating your coins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="part7.html#running-a-delegate">Running a delegate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part7.html#running-a-delegate">Running a delegate</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#deposits-and-over-delegation">Deposits and over-delegation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#expected-rights-deposits-and-rewards">Expected rights, deposits and rewards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#register-and-check-your-rights">Register and check your rights</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#inactive-delegates">Inactive delegates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#baker">Baker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#endorser">Endorser</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#accuser">Accuser</a></li>
+<li class="toctree-l3"><a class="reference internal" href="part7.html#docker">Docker</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="part8.html">Smart Contracts and Liquidity</a><ul>
@@ -162,6 +200,13 @@
 <li class="toctree-l2"><a class="reference internal" href="part8.html#variants">Variants</a></li>
 <li class="toctree-l2"><a class="reference internal" href="part8.html#functions-and-closures">Functions and Closures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="part8.html#loops">Loops</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="part9.html">Building your first DApp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="part9.html#the-contract">The Contract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part9.html#declaring-the-storage">Declaring the storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part9.html#the-init-function">The init Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="part9.html#the-main-function">The Main Function</a></li>
 </ul>
 </li>
 </ul>

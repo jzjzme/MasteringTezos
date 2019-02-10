@@ -15,7 +15,7 @@ Section 2 begins in February and covers building smart contracts and a dApp. Thi
 Section 3 begins in March, and is building your own dApp! We will be supplying mentors to help you overcome any technical challenges.
 
 Capstone Content Section I
-==================
+============================
 .. only:: html
 
 .. toctree::
@@ -28,18 +28,19 @@ Capstone Content Section I
    part5.rst
 
 Capstone Content Section II
-==================
+=============================
 
 Welcome to Tezos Capstone Section 2! In this section, we will be getting hands on with Tezos, and starting development. We will first cover downloading the Tezos binaries and getting familiar with basic commands, then learn the basics of smart contracts, and finally build your first dApp! Let’s get started
 
 .. only:: html
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 4
 
   part6.rst
   part7.rst
   part8.rst
+  part9.rst
 
 Search Tool
 ==================

@@ -1,0 +1,223 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Building your first DApp &#8212; Tezos Capstone January 11, 2019 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Smart Contracts and Liquidity" href="part8.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="index.html"><h1 style="font-size: 3em;">Tezos Capstone</h1></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="part8.html" title="Smart Contracts and Liquidity"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Building your first DApp</a><ul>
+<li><a class="reference internal" href="#the-contract">The Contract</a></li>
+<li><a class="reference internal" href="#declaring-the-storage">Declaring the storage</a></li>
+<li><a class="reference internal" href="#the-init-function">The init Function</a></li>
+<li><a class="reference internal" href="#the-main-function">The Main Function</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part8.html"
+                        title="previous chapter">Smart Contracts and Liquidity</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/part9.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="building-your-first-dapp">
+<span id="part9"></span><h1>Building your first DApp<a class="headerlink" href="#building-your-first-dapp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-contract">
+<h2>The Contract<a class="headerlink" href="#the-contract" title="Permalink to this headline">¶</a></h2>
+<p>We will be building a voting smart contract based on <a class="reference external" href="https://www.zastrin.com/courses/simple-tezos-dapp/lessons/1-1">https://www.zastrin.com/courses/simple-tezos-dapp/lessons/1-1</a> from Zastrin and TCF. The purpose of the contract is to pass a list of candidates in an election. The logic in the smart contract will count the votes made for each candidate, while preventing people from voting multiple times.</p>
+<p>For the contract development, we recommend using the Liquidity online IDE <a class="reference external" href="http://www.liquidity-lang.org/zeronet/">http://www.liquidity-lang.org/zeronet/</a>. There are several smart contract examples on there to explore, and it also supports testing, deployment and displays the corresponding Michelson code. All smart contracts in liquidity are .liq files.</p>
+<p>Let’s get to it!</p>
+</div>
+<div class="section" id="declaring-the-storage">
+<h2>Declaring the storage<a class="headerlink" href="#declaring-the-storage" title="Permalink to this headline">¶</a></h2>
+<p>First let’s outline the storage for the contract. We want to store two things: all the candidates in the election and the amount of votes they have received, as well as voter information so they cannot vote multiple times. These will be stored in the form of a hash or key-value store. So to do this, we will have candidates store their name (string) and votes (int) while voters store their Tezos address (address) and if they voted or not (bool).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">%%</span><span class="n">version</span> <span class="mf">0.4</span><span class="p">]</span>
+
+<span class="nb">type</span> <span class="n">storage</span> <span class="o">=</span> <span class="p">{</span>
+              <span class="n">candidates</span> <span class="p">:</span> <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="nb">map</span><span class="p">;</span>
+              <span class="n">voters</span> <span class="p">:</span> <span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="nb">map</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-init-function">
+<h2>The init Function<a class="headerlink" href="#the-init-function" title="Permalink to this headline">¶</a></h2>
+<p>Let’s create the init function which builds the necessary parts when the contract is first created. When deployed, we need to first get all the candidates’ names and set their respective vote counts to zero. To do this, we will be using Liquidity’s fold function which is an accumulator that applies a function to an array. We will also need to create an empty storage for the voters, as there are none initially when the smart contract is first deployed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span><span class="o">%</span><span class="n">init</span> <span class="n">init_candidates</span> <span class="p">(</span><span class="n">candidate_names</span> <span class="p">:</span> <span class="n">string</span> <span class="nb">list</span><span class="p">)</span> <span class="o">=</span>
+<span class="n">let</span> <span class="n">candidates</span> <span class="o">=</span> <span class="n">List</span><span class="o">.</span><span class="n">fold</span> <span class="p">(</span><span class="n">fun</span> <span class="p">(</span><span class="n">elt</span><span class="p">,</span> <span class="nb">map</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Map</span><span class="o">.</span><span class="n">add</span> <span class="n">elt</span> <span class="mi">0</span> <span class="nb">map</span><span class="p">)</span> <span class="n">candidate_names</span>
+                      <span class="p">(</span><span class="n">Map</span> <span class="p">[]</span> <span class="p">:</span> <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="nb">map</span><span class="p">)</span> <span class="ow">in</span>
+      <span class="p">{</span> <span class="n">candidates</span> <span class="o">=</span> <span class="n">candidates</span><span class="p">;</span> <span class="n">voters</span> <span class="o">=</span> <span class="p">(</span><span class="n">Map</span> <span class="p">:</span> <span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="nb">map</span><span class="p">);</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-main-function">
+<h2>The Main Function<a class="headerlink" href="#the-main-function" title="Permalink to this headline">¶</a></h2>
+<p>Let’s move to the main function of the smart contract and create the logic which will power the contract.</p>
+<p>The first parameter is the string, which the caller will pass when voting for a candidate. The first logic we want to add is that when a caller calls the contract and passes the candidate name, the vote count will increment. But first, we need to find the candidate using the map.find function. If the candidate is not found, the failwith function, which is like an error, will show the candidate is not valid. If the candidate is found, we will use the map.add function to increment the vote by one.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let%enty main
+      (parameter : string)
+      (storage : storage) =
+
+      Map.find parameter storage.candidates with
+              None -&gt; failwith (“Candidate is not valid”, parameter)
+              Some x -&gt; Map.add parameter (x+1) storage.candidates
+</pre></div>
+</div>
+<p>It is important to know that in Liquidity there are no side effects. This means that when you execute Map.add instead of modifying, it returns a new map. So we will need to catch this using the match keyword. Match is a standard in both OCaml and Liquidity for changing maps by finding the associated values then performing operations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let%enty main
+      (parameter : string)
+      (storage : storage) =
+
+      Storage.candidates &lt;- match Map.find parameter storage.candidates with
+              None -&gt; failwith (“Candidate is not valid”, parameter)
+              Some x -&gt; Map.add parameter (x+1) storage.candidates
+</pre></div>
+</div>
+<p>Let’s also assign our storage variable to our new storage and finish the entry function. Since we do not have any additional operations, we can return an empty list.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let%enty main
+      (parameter : string)
+      (storage : storage) =
+
+let storage =
+      Storage.candidates &lt;- match Map.find parameter storage.candidates with
+              None -&gt; failwith (“Candidate is not valid”, parameter)
+              Some x -&gt; Map.add parameter (x+1) storage.candidates
+
+in
+  (([] : operation list), storage)
+</pre></div>
+</div>
+<p>Let’s build the logic for the voters. First we need to derive the address of the voter using Current.source() function. Next, let’s check if the voter has voted before using the match function from earlier. If the address does not match to any address in the map, we can add the voter’s address to our map as the voter has not voted yet. If the address matches, then we can return an error that the voter has voted already. Don’t forget to catch the new map!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>let addr = Current.source () in
+
+let storage =
+  storage.voters &lt;-match Map.find addr storage.voters with
+      None -&gt; Map.add addr true storage.voters
+      Some x -&gt; failwith (“Voter has already voted”, addr)
+in
+</pre></div>
+</div>
+<p>Let’s look at the code as a whole now:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[%%version 0.4]
+
+type storage = {
+              candidates : (string, int) map;
+              voters : (address, bool) map;
+}
+
+let%init init_candidates (candidate_names : string list) =
+let candidates = List.fold (fun (elt, map) -&gt; Map.add elt 0 map) candidate_names
+                      (Map [] : (string, int) map) in
+      { candidates = candidates; voters = (Map : (address, bool) map); }
+
+let%enty main
+      (parameter : string)
+      (storage : storage) =
+
+      let addr = Current.source () in
+let storage =
+              storage.voters &lt;-match Map.find addr storage.voters with
+                      None -&gt; Map.add addr true storage.voters
+                      Some x -&gt; failwith (“Voter has already voted”, addr)
+in
+
+let storage =
+              Storage.candidates &lt;- match Map.find parameter storage.candidates with
+                       None -&gt; failwith (“Candidate is not valid”, parameter)
+                      Some x -&gt; Map.add parameter (x+1) storage.candidates
+      in
+
+      (([] : operation list), storage)
+</pre></div>
+</div>
+<p>If you decided to compile the contract, there may be a warning for undeclared variable x. This is because x has not been determined yet until user input, but otherwise the contract is complete! Congrats! Let’s get to building the HTML frontend.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="part8.html" title="Smart Contracts and Liquidity"
+             >previous</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jackie Zhang &amp; Kent Makishima.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+  </body>
+</html>
