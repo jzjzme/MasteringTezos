@@ -138,3 +138,5 @@ Let’s look at the code as a whole now:
    	(([] : operation list), storage)
 
 If you decided to compile the contract, there may be a warning for undeclared variable x. This is because x has not been determined yet until user input, but otherwise the contract is complete! Congrats! Let’s get to building the HTML frontend.
+
+:ref:`part10`.
