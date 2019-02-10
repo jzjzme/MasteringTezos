@@ -1,0 +1,142 @@
+.. _part11:
+
+*************************************
+Interacting with the Tezos blockchain
+*************************************
+
+By default, eztz automatically connects to a Tezos network offered by Teztech. However, we can switch this to our local node or whichever node you will deploy your contractl.
+
+To briefly go over the eztz library, it is broken up into four main parts:
+
+eztz.crypto: key generation, message signing and verification
+
+eztz.node: communication and connection with Tezos
+
+eztz.rpc: Tezos node JSON RPC API
+
+eztz.contract: interacting with and deploying contracts
+
+
+For our dApp we will be focusing on eztz.crypto and eztz.contract, since we will have to sign off on transactions sent to the blockchain and updating our voting data. Let’s start building app.js for our functionality!
+
+First, let’s create loadData(). This function will load all data at start, so first we need to connect with the smart contract. All further functions we create will be nested within loadData.
+
+.. code-block:: Javascript
+
+  var contractAddress;
+  var keys;
+  var account;
+
+  function loadData() {
+    contractAddress = "*INSERT CONTRACT ADDRESS*";
+    eztz.node.setProvider("*insert node{ex http://localhost:8732}");
+    var mnemonic = "utility orbit end win roast sail warrior toast cross banana news gossip swap theme piece"
+    keys = eztz.crypto.generateKeys(mnemonic, "password");
+    account = keys.pkh;
+    console.log(account);
+  }
+
+Contract address is the address assigned after deploying your contract, while setProvider is the node that your contract is deployed on. For example, if you deploy your contract on your local node, you would use the localhost address the node is currently running on. The mnemonic and keys would be replaced by a user’s wallet in real world usage, but for this tutorial we generate the appropriate account info.
+
+Let’s add in getBalance from the eztz library to retrieve the Tez balance for the account.
+
+.. code-block:: Javascript
+
+  var contractAddress;
+  var keys;
+  var account;
+
+  function loadData() {
+    contractAddress = "*INSERT CONTRACT ADDRESS*";
+    eztz.node.setProvider("*insert node{ex http://localhost:8732}");
+    var mnemonic = "utility orbit end win roast sail warrior toast cross banana news gossip swap theme piece"
+    keys = eztz.crypto.generateKeys(mnemonic, "password");
+    account = keys.pkh;
+    console.log(account);
+
+    eztz.rpc.getBalance(account).then(function(res) {
+      $("#balance").html(res);
+      $("#account").html(account);
+    });
+  }
+
+If running on a local node, there may be an error regarding cors headers. To remedy this, update the config file at ~/.tezos-node/config.json with the following code:
+
+.. code-block:: JSON
+
+  { "rpc": { "listen-addr": "127.0.0.1:8732", "cors-origin": ["*"], "cors-headers": ["*"] }, "p2p": { "listen-addr": "[::]:9732" } }
+
+Now we need to interact with the contract. We will be using the contract.watch function from the eztz library to monitor the voting contract data. This function takes in the contract address as well as the time interval for pulling data as parameters. For our dApp, this allows the app to update in real time while people vote.
+
+.. code-block:: Javascript
+
+  var contractAddress;
+  var keys;
+  var account;
+
+  function loadData() {
+    contractAddress = "*INSERT CONTRACT ADDRESS*";
+    eztz.node.setProvider("*insert node{ex http://localhost:8732}");
+    var mnemonic = "utility orbit end win roast sail warrior toast cross banana news gossip swap theme piece"
+    keys = eztz.crypto.generateKeys(mnemonic, "password");
+    account = keys.pkh;
+    console.log(account);
+
+    eztz.rpc.getBalance(account).then(function(res) {
+      $("#balance").html(res);
+      $("#account").html(account);
+    });
+
+    eztz.contract.watch(contractAddress, 2, function(s){
+      console.log("New storage", s);
+      var candidateList = s.args[0];
+      for (var i=1; i<= candidateList.length; i++) {
+        $("#candidate-" + i).html(candidateList[i-1].args[1].int);
+      }
+      $("#msg").html("");
+    });
+  }
+
+Lastly, let’s add functionality to allow voters to vote by creating a voteForCandidate function. To do this, we need to send a message to the smart contract for the transaction. We will use the eztz function contract.send to handle the message. For this function, we set the Tez fee as 0, since there is no cost to vote, and a variable for the message, in this case the inputted candidate name string. We will also need to set the Tezos baker fee, gas fee and storage fee for using the Tezos blockchain.
+
+.. code-block:: html
+
+  var contractAddress;
+  var keys;
+  var account;
+
+  function loadData() {
+    contractAddress = "*INSERT CONTRACT ADDRESS*";
+    eztz.node.setProvider("*insert node{ex http://localhost:8732}");
+    var mnemonic = "utility orbit end win roast sail warrior toast cross banana news gossip swap theme piece"
+    keys = eztz.crypto.generateKeys(mnemonic, "password");
+    account = keys.pkh;
+    console.log(account);
+
+    eztz.rpc.getBalance(account).then(function(res) {
+      $("#balance").html(res);
+      $("#account").html(account);
+    });
+
+    eztz.contract.watch(contractAddress, 2, function(s){
+      console.log("New storage", s);
+      var candidateList = s.args[0];
+      for (var i=1; i<= candidateList.length; i++) {
+        $("#candidate-" + i).html(candidateList[i-1].args[1].int);
+      }
+      $("#msg").html("");
+    });
+  }
+
+  function voteForCandidate() {
+    var candidate = $("#candidate").val();
+    eztz.contract.send(contractAddress, account, keys, 0, '\"' + candidate + '\"', "0100000", 100000, 60000).then(function(res){
+      console.log(res); // Operation result
+      $("#msg").html("Please wait for the transaction to complete");
+    }).catch(function(e){
+      console.log(e);
+      $("#msg").html("Error: " + e.error + " - " + e.errors[1].with.args[0].string);
+    });
+  }
+
+:ref:`part11`.
