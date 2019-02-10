@@ -136,3 +136,5 @@ To add the default opam repository at a lower priority (for example to install m
    opam repo add default --rank=-1
 
 .. _howtouse:
+
+:ref:`part7`.

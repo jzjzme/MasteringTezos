@@ -1,0 +1,474 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Using Tezos and Basic Commands &#8212; Tezos Capstone January 11, 2019 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Installing and Running your own Tezos node" href="part6.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="index.html"><h1 style="font-size: 3em;">Tezos Capstone</h1></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="part6.html" title="Installing and Running your own Tezos node"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using Tezos and Basic Commands</a><ul>
+<li><a class="reference internal" href="#the-binaries">The binaries</a></li>
+<li><a class="reference internal" href="#accessing-the-manual">Accessing the manual</a></li>
+<li><a class="reference internal" href="#the-node">The Node</a><ul>
+<li><a class="reference internal" href="#node-identity">Node identity</a></li>
+<li><a class="reference internal" href="#storage">Storage</a></li>
+<li><a class="reference internal" href="#rpc-interface">RPC interface</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#client">Client</a><ul>
+<li><a class="reference internal" href="#a-simple-wallet">A simple wallet</a></li>
+<li><a class="reference internal" href="#get-free-tez">Get free tez</a></li>
+<li><a class="reference internal" href="#transactions">Transactions</a></li>
+<li><a class="reference internal" href="#receipts-for-operations-and-blocks">Receipts for operations and blocks</a></li>
+<li><a class="reference internal" href="#originated-accounts-and-contracts">Originated accounts and Contracts</a></li>
+<li><a class="reference internal" href="#gas-and-storage-cost-model">Gas and storage cost model</a></li>
+<li><a class="reference internal" href="#validation">Validation</a></li>
+<li><a class="reference internal" href="#using-rpcs">Using RPCs</a><ul>
+<li><a class="reference internal" href="#how-to-run-tezos">How to run Tezos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#delegating-your-coins">Delegating your coins</a></li>
+<li><a class="reference internal" href="#running-a-delegate">Running a delegate</a><ul>
+<li><a class="reference internal" href="#deposits-and-over-delegation">Deposits and over-delegation</a></li>
+<li><a class="reference internal" href="#expected-rights-deposits-and-rewards">Expected rights, deposits and rewards</a></li>
+<li><a class="reference internal" href="#register-and-check-your-rights">Register and check your rights</a></li>
+<li><a class="reference internal" href="#inactive-delegates">Inactive delegates</a></li>
+<li><a class="reference internal" href="#baker">Baker</a></li>
+<li><a class="reference internal" href="#endorser">Endorser</a></li>
+<li><a class="reference internal" href="#accuser">Accuser</a></li>
+<li><a class="reference internal" href="#docker">Docker</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part6.html"
+                        title="previous chapter">Installing and Running your own Tezos node</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/part7.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-tezos-and-basic-commands">
+<span id="part7"></span><h1>Using Tezos and Basic Commands<a class="headerlink" href="#using-tezos-and-basic-commands" title="Permalink to this headline">¶</a></h1>
+<p>Let’s look at the use of the various Tezos binaries as well as some concepts about the network.</p>
+<div class="section" id="the-binaries">
+<h2>The binaries<a class="headerlink" href="#the-binaries" title="Permalink to this headline">¶</a></h2>
+<p>After a successful compilation, you should have the following binaries:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">tezos-node</span></code>: the tezos daemon itself;</li>
+<li><code class="docutils literal notranslate"><span class="pre">tezos-client</span></code>: a command-line client and basic wallet;</li>
+<li><code class="docutils literal notranslate"><span class="pre">tezos-admin-client</span></code>: administration tool for the node;</li>
+<li><code class="docutils literal notranslate"><span class="pre">tezos-{baker,endorser,accuser}-alpha</span></code>: daemons to bake, endorse
+and accuse on the Tezos network (see <a class="reference internal" href="#howtorun"><span class="std std-ref">How to run Tezos</span></a>);</li>
+<li><code class="docutils literal notranslate"><span class="pre">tezos-signer</span></code>: a client to remotely sign operations or blocks
+(see <span class="xref std std-ref">signer</span>);</li>
+</ul>
+<p>Note that Alphanet and Zeronet only support the last version of the protocol which is always called <cite>alpha</cite> while Betanet must also support all past protocols. For this reason the name of the 3 daemons in Betanet contains the incremental number and the partial hash of the protocol they are bound to, such as <code class="docutils literal notranslate"><span class="pre">tezos-{baker,endorser,accuser}-002-PsYLVpVv</span></code>.</p>
+</div>
+<div class="section" id="accessing-the-manual">
+<h2>Accessing the manual<a class="headerlink" href="#accessing-the-manual" title="Permalink to this headline">¶</a></h2>
+<p>The manual of each binary can be obtained with the command <code class="docutils literal notranslate"><span class="pre">man</span></code> and the verbosity can be increased with <code class="docutils literal notranslate"><span class="pre">-v</span></code>. To use one specific command, type the command without arguments to see possible completions and options. It is also possible to search a keyword in the manual with <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">keyword</span></code>. The full documentation is also available online <span class="xref std std-ref">client_manual</span>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">man</span> <span class="o">-</span><span class="n">v</span> <span class="mi">3</span>
+<span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">transfer</span>
+<span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">man</span> <span class="nb">set</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-node">
+<h2>The Node<a class="headerlink" href="#the-node" title="Permalink to this headline">¶</a></h2>
+<p>The node is effectively the Tezos blockchain and it has two main functions: running the gossip network and the updating the context. The gossip network is where all Tezos nodes exchange blocks and operations with each other. Using this peer-to-peer network an operation originated by a user, can hop several times through other nodes until it finds its way in a block baked by a baker. Using the blocks it receives on the gossip network the shell also keeps up to date the current <cite>context</cite>, that is the full state of the blockchain shared by all peers. Approximately every minute a new block is created and, when the shell receives it, it applies each operation in the block to its current context and computes a new context. The last block received on a chain is also called the <cite>head</cite> of that chain. Each new head is then advertised by the node to its peers, disseminating this information to build a consensus across the network.</p>
+<p>Other than passively observing the network, your node can also inject its own new operations when instructed by the <code class="docutils literal notranslate"><span class="pre">tezos-client</span></code> and even send new blocks when guided by the <code class="docutils literal notranslate"><span class="pre">tezos-baker-alpha</span></code>. The node has also a view of the multiple chains that may exist concurrently and selects the best one based on its fitness.</p>
+<div class="section" id="node-identity">
+<h3>Node identity<a class="headerlink" href="#node-identity" title="Permalink to this headline">¶</a></h3>
+<p>First we need to generate a new identity in order for the node to connect to the network:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">node</span> <span class="n">identity</span> <span class="n">generate</span>
+</pre></div>
+</div>
+<p>The identity comprises a pair of cryptographic keys that nodes use to encrypt messages sent to each other, and an antispam-PoW stamp proving that enough computing power has been dedicated to creating this identity. Note that this is merely a network identity and it is not related in any way to a Tezos address on the block-chain.</p>
+</div>
+<div class="section" id="storage">
+<h3>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h3>
+<p>All block-chain data is stored under <code class="docutils literal notranslate"><span class="pre">$HOME/.tezos-node/</span></code>. If for some reason your node is misbehaving or there has been an upgrade of the network, it is safe to remove this directory, it just means that your node will take some time to resync the chain. You can keep <code class="docutils literal notranslate"><span class="pre">identity.json</span></code> if it takes a long time for you to compute it and only remove the <code class="docutils literal notranslate"><span class="pre">store</span></code> and <code class="docutils literal notranslate"><span class="pre">context</span></code> directories.</p>
+<p>If you are also running a baker make sure that it has access to the <code class="docutils literal notranslate"><span class="pre">.tezos-node</span></code> directory of the node.</p>
+</div>
+<div class="section" id="rpc-interface">
+<h3>RPC interface<a class="headerlink" href="#rpc-interface" title="Permalink to this headline">¶</a></h3>
+<p>The only interface to the node is through Json RPC calls and it is disabled by default. The RPC interface must be enabled in order for the clients to communicate with the node, but is should not be publicly accessible on the internet. With the following command it is available uniquely on the <cite>localhost</cite> address of your machine, on the default port <code class="docutils literal notranslate"><span class="pre">8732</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">node</span> <span class="n">run</span> <span class="o">--</span><span class="n">rpc</span><span class="o">-</span><span class="n">addr</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span>
+</pre></div>
+</div>
+<p>The node listens by default on port <code class="docutils literal notranslate"><span class="pre">19732</span></code> so it is advisable to open incoming connections to that port.</p>
+</div>
+</div>
+<div class="section" id="client">
+<h2>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h2>
+<p>The Tezos client can be used to interact with the node, by querying its status or asking the node to perform some actions. For example after starting your node you can check if it has finished synchronizing using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">bootstrapped</span>
+</pre></div>
+</div>
+<p>This call will hang and return only when the node is synchronized. We can now check what is the current timestamp of the head of the chain (time is in UTC so it may differ from your local):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">get</span> <span class="n">timestamp</span>
+</pre></div>
+</div>
+<div class="section" id="a-simple-wallet">
+<h3>A simple wallet<a class="headerlink" href="#a-simple-wallet" title="Permalink to this headline">¶</a></h3>
+<p>The client is also a basic wallet and after the activation above you will notice that the directory <code class="docutils literal notranslate"><span class="pre">.tezos-client</span></code> has been populated with 3 files <code class="docutils literal notranslate"><span class="pre">public_key_hashs</span></code>, <code class="docutils literal notranslate"><span class="pre">public_keys</span></code> and <code class="docutils literal notranslate"><span class="pre">secret_keys</span></code>. The content of each file is in json and keeps the mapping between aliases (<code class="docutils literal notranslate"><span class="pre">alice</span></code> in our case) and what you would expect from the name of the file. Secret keys are stored on disk encrypted with a password except when using a hardware wallet.
+An additional file <code class="docutils literal notranslate"><span class="pre">contracts</span></code> contains the addresses of <cite>originated contracts</cite>, which have the form <em>KT1…</em>.</p>
+<p>We can for example generate a new pair of keys, which can used locally with the alias <em>bob</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ tezos-client gen keys bob
+</pre></div>
+</div>
+<p>Tezos support three different ECC schemes: <em>Ed25519</em>, <em>secp256k1</em> (the one used in Bitcoin), and <em>P-256</em> (also called <em>secp256r1</em>). The two latter curves have been added for interoperability with Bitcoin and Hardware Security Modules (<em>HSMs</em>) mostly. Unless your use case require those, you should probably use <em>Ed25519</em>. We use a verified library for Ed25519, and it is generally recommended over other curves by the crypto community, for performance and security reasons.</p>
+<p>Make sure to make a back-up of this directory and that the password protecting your secret keys is properly managed.</p>
+</div>
+<div class="section" id="get-free-tez">
+<span id="faucet"></span><h3>Get free tez<a class="headerlink" href="#get-free-tez" title="Permalink to this headline">¶</a></h3>
+<p>In order to test the networks and help users get familiar with the system, on Zeronet and Alphanet you can obtain free tez from a <a class="reference external" href="https://faucet.tzalpha.net">faucet</a>.</p>
+<p>This will provide a wallet in the form of a JSON file <code class="docutils literal notranslate"><span class="pre">tz1__xxxxxxxxx__.json</span></code>, that can be activated with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">activate</span> <span class="n">account</span> <span class="n">alice</span> <span class="k">with</span> <span class="s2">&quot;tz1__xxxxxxxxx__.json&quot;</span>
+</pre></div>
+</div>
+<p>If you use the <code class="docutils literal notranslate"><span class="pre">alphanet.sh</span></code> script, you should prefix the file with <code class="docutils literal notranslate"><span class="pre">container:</span></code> in order to copy it into the docker image: <code class="docutils literal notranslate"><span class="pre">./alphanet.sh</span> <span class="pre">client</span> <span class="pre">activate</span> <span class="pre">account</span> <span class="pre">alice</span> <span class="pre">with</span> <span class="pre">&quot;container:tz1__xxxxxxxxx__.json&quot;</span></code></p>
+<p>Let’s check the balance of the new account with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">get</span> <span class="n">balance</span> <span class="k">for</span> <span class="n">alice</span>
+</pre></div>
+</div>
+<p>Please preserve the JSON file, after each reset of Zeronet or Alphanet, you will have to reactivate the wallet.</p>
+<p>Please drink carefully and don’t abuse the faucet: it only contains 30.000 wallets for a total amount of ꜩ760.000.000.</p>
+</div>
+<div class="section" id="transactions">
+<h3>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline">¶</a></h3>
+<p>Let’s transfer some tez to the new account:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">transfer</span> <span class="mi">1</span> <span class="kn">from</span> <span class="nn">alice</span> <span class="n">to</span> <span class="n">bob</span> <span class="o">--</span><span class="n">fee</span> <span class="mf">0.05</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">transfer</span></code> command returns a receipt with all the details of the transaction, including its hash, and then waits for the operation to be included in one block. If you want to simulate a transaction without actually sending it to the network you can use the <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> option. As in any block-chain it is advisable to wait several blocks to consider the transaction as final, for an important operation we advice to wait 60 blocks. We can do that with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">wait</span> <span class="k">for</span> <span class="o">&lt;</span><span class="n">operation</span> <span class="nb">hash</span><span class="o">&gt;</span> <span class="n">to</span> <span class="n">be</span> <span class="n">included</span>
+</pre></div>
+</div>
+<p>In the rare case when an operation is lost, how can we be sure that it will not be included in any future block and re-emit it? After 60 blocks a transaction is considered invalid and can’t be included anymore in a block. Furthermore each operation has a counter (explained in more detail later) that prevents replays so it is usually safe to re-emit an operation that seems lost.</p>
+</div>
+<div class="section" id="receipts-for-operations-and-blocks">
+<h3>Receipts for operations and blocks<a class="headerlink" href="#receipts-for-operations-and-blocks" title="Permalink to this headline">¶</a></h3>
+<p>After an operation the client prints a <cite>receipt</cite> that recapitulates the effects of the operation on the block-chain. It is possible to review the receipt of a transaction with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">rpc</span> <span class="n">get</span> <span class="o">/</span><span class="n">chains</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">blocks</span><span class="o">/</span><span class="n">head</span><span class="o">/</span><span class="n">operations</span>
+</pre></div>
+</div>
+<p>A manager operation, such as a transaction, has 3 important parameters: counter, gas and storage limit. The counter belongs to each account, it increases at each operation signed by that account and enforces some good intuitive properties:</p>
+<ul class="simple">
+<li>each operation is unique: for example if we perform twice the same
+transfer from <em>alice</em> to <em>bob</em>, even if all the data are the
+same the counter will be different.</li>
+<li>each operation is applied once: for example if the transfer above
+reaches two peers and they both send it to a third peer, it will not
+apply the transaction twice.</li>
+<li>operations are applied in order.</li>
+<li>all previous operations have been applied: if we emit operation <em>n</em>
+and <em>n+1</em>, and <em>n</em> gets lost then <em>n+1</em> cannot be applied.</li>
+</ul>
+<p>Additionally each operation needs to declare a gas and storage limit, if an operation consumes more than these limits it will fail. Later we’ll learn more about the gas and storage model.</p>
+<p>Another interesting field of the receipts are the <cite>balance updates</cite> showing which account was credited or debited. For the transaction above the updates are symmetrical, <em>alice</em> is debited 1ꜩ and <em>bob</em> is credited the same amount. The same is true for the fees with the difference that the baker is credited and, more importantly, it is not credited immediately on its main account but on its frozen fees account, hence the category <cite>freezer</cite>. Each delegate has 3 frozen accounts: <cite>deposits</cite>, <cite>fees</cite> and <cite>rewards</cite>. They are frozen because the delegate can’t use them for now, but only after a number cycles.</p>
+<p>It is also possible to review the receipt of the whole block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">rpc</span> <span class="n">get</span> <span class="o">/</span><span class="n">chains</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">blocks</span><span class="o">/</span><span class="n">head</span><span class="o">/</span><span class="n">metadata</span>
+</pre></div>
+</div>
+<p>Here we always see the deposit that the baker had to put down to bake the block, which is again a debit on its main account paired with a credit on its <cite>deposits</cite> account, and the creation of a reward, which is a single credit to its <cite>rewards</cite> account.</p>
+<p>An interesting block receipt is the one produced at the end of a cycle as many delegates receive back part of their unfrozen accounts.</p>
+</div>
+<div class="section" id="originated-accounts-and-contracts">
+<span id="originated-accounts"></span><h3>Originated accounts and Contracts<a class="headerlink" href="#originated-accounts-and-contracts" title="Permalink to this headline">¶</a></h3>
+<p>In Tezos there are two kinds of accounts: <em>implicit</em> and <em>originated</em>. The implicit accounts are the <em>tz1</em> we have used up to now and to create them if suffices to have a pair of keys and to transfer some funds to the public key hash. Originated accounts have addresses <em>KT1</em> and are created through an origination operation. One reason to originate an account is to delegate your tokens. The other main reason is that an originated account can also have Michelson code, in which case it is called a <em>contract</em>.</p>
+<p>Let’s originate our first contract and call it <em>id</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">originate</span> <span class="n">contract</span> <span class="nb">id</span> <span class="k">for</span> <span class="n">alice</span> \
+                                <span class="n">transferring</span> <span class="mi">1</span> <span class="kn">from</span> <span class="nn">alice</span> \
+                                <span class="n">running</span> <span class="o">./</span><span class="n">src</span><span class="o">/</span><span class="n">bin_client</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">contracts</span><span class="o">/</span><span class="nb">id</span><span class="o">.</span><span class="n">tz</span> \
+                                <span class="o">--</span><span class="n">init</span> <span class="s1">&#39;&quot;hello&quot;&#39;</span>
+</pre></div>
+</div>
+<p>We set <em>alice</em> as manager, a 1ꜩ starting balance generously provided by <em>alice</em> and the code from the <code class="docutils literal notranslate"><span class="pre">id.tz</span></code> Michelson program which is just the identity. Every program declares in its first 2 lines the type of its parameter and storage, for <em>id</em> they are both strings so we initialize the contract with the string <code class="docutils literal notranslate"><span class="pre">&quot;hello&quot;</span></code> (the extra quotes are to avoid
+the shell expansion).</p>
+</div>
+<div class="section" id="gas-and-storage-cost-model">
+<h3>Gas and storage cost model<a class="headerlink" href="#gas-and-storage-cost-model" title="Permalink to this headline">¶</a></h3>
+<p>A quick look at the balance updates on the receipt shows that on top of funding the contract with 1ꜩ, <em>alice</em> was also charged an extra cost that is burnt. This cost comes from the <em>storage</em> and is shown in the line <code class="docutils literal notranslate"><span class="pre">Paid</span> <span class="pre">storage</span> <span class="pre">size</span> <span class="pre">diff:</span> <span class="pre">46</span> <span class="pre">bytes</span></code>, 41 for the contract and 5 for the string <code class="docutils literal notranslate"><span class="pre">&quot;hello&quot;</span></code>. Given that a contract saves its data on the public block-chain that every node stores, it is necessary to charge a fee per byte to avoid abuse and encourage lean programs.</p>
+<p>Let’s see what calling a program with a new argument would look like with the <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">transfer</span> <span class="mi">0</span> <span class="kn">from</span> <span class="nn">alice</span> <span class="n">to</span> <span class="nb">id</span> <span class="o">--</span><span class="n">arg</span> <span class="s1">&#39;&quot;world&quot;&#39;</span> <span class="o">--</span><span class="n">dry</span><span class="o">-</span><span class="n">run</span>
+</pre></div>
+</div>
+<p>The transaction would successfully update the storage but this time it wouldn’t cost us anything more than the fee, the reason is that the storage for <code class="docutils literal notranslate"><span class="pre">&quot;world&quot;</span></code> is the same as for <code class="docutils literal notranslate"><span class="pre">&quot;hello&quot;</span></code>, which has already been paid for. To store more we’ll need to pay more, you can try by passing a longer string.</p>
+<p>The other cost associated with running contracts is the <em>gas</em>, which measures <em>how long</em> does a program take to compute. Contrary to storage there is no cost per gas unit, a transfer can require as much gas as it wants, however a baker that has to choose among several transactions is much more likely to include a low gas one because it’s cheaper to run and validate. At the same time bakers also give priority to high fee transactions. This means that there is an implicit cost for gas that is related to the fee offered versus the gas and fees of other transactions.</p>
+<p>If you are happy with the gas and storage of your transaction you can run it for real, however it is always a good idea to set explicit limit for both. The transaction fails if the limits are passed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">transfer</span> <span class="mi">0</span> <span class="kn">from</span> <span class="nn">alice</span> <span class="n">to</span> <span class="nb">id</span> <span class="o">--</span><span class="n">arg</span> <span class="s1">&#39;&quot;world&quot;&#39;</span> \
+                                         <span class="o">--</span><span class="n">gas</span><span class="o">-</span><span class="n">limit</span> <span class="mi">1475</span> \
+                                         <span class="o">--</span><span class="n">storage</span><span class="o">-</span><span class="n">limit</span> <span class="mi">46</span>
+</pre></div>
+</div>
+<p>A baker is more likely to include an operation with lower gas and storage limits because it takes less resources to execute so it is in the best interest of the user to pick limits that are as close as possible to the actual use.</p>
+</div>
+<div class="section" id="validation">
+<h3>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h3>
+<p>The node allows to validate an operation before submitting it to the network by simply simulating the application of the operation to the current context. In general if you just send an invalid operation e.g. sending more tokens that what you own, the node will broadcast it and when it is included in a block you’ll have to pay the usual fee even if it won’t have an affect on the context. To avoid this case the client first asks the node to validate the transaction and then sends it.</p>
+<p>The same validation is used when you pass the option <code class="docutils literal notranslate"><span class="pre">--dry-run</span></code>, the receipt that you see is actually a simulated one.</p>
+<p>Another important use of validation is to determine gas and storage limits. The node first simulates the execution of a Michelson program and takes trace of the amount of gas and storage. Then the client sends the transaction with the right limits for gas and storage based on that indicated by the node. This is why we were able to submit transactions without specifying this limits, they were computed for us.</p>
+</div>
+<div class="section" id="using-rpcs">
+<h3>Using RPCs<a class="headerlink" href="#using-rpcs" title="Permalink to this headline">¶</a></h3>
+<p>The client communicates with the node uniquely through RPC calls so make sure that the node is listening and that the ports are correct. For example the <code class="docutils literal notranslate"><span class="pre">get</span> <span class="pre">timestamp</span></code> command above is a shortcut for:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">rpc</span> <span class="n">get</span> <span class="o">/</span><span class="n">chains</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">blocks</span><span class="o">/</span><span class="n">head</span><span class="o">/</span><span class="n">header</span><span class="o">/</span><span class="n">shell</span>
+</pre></div>
+</div>
+<p>The client tries to simplify common tasks as much as possible, however if you want to query the node for more specific informations you’ll have to resort to RPCs. For example to check the value of important constants in Tezos, which may differ between Betanet, Alphanet and Zeronet, you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">rpc</span> <span class="n">get</span> <span class="o">/</span><span class="n">chains</span><span class="o">/</span><span class="n">main</span><span class="o">/</span><span class="n">blocks</span><span class="o">/</span><span class="n">head</span><span class="o">/</span><span class="n">context</span><span class="o">/</span><span class="n">constants</span> <span class="o">|</span> <span class="n">jq</span>
+<span class="p">{</span>
+  <span class="s2">&quot;proof_of_work_nonce_size&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+  <span class="s2">&quot;nonce_length&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+  <span class="s2">&quot;max_revelations_per_block&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+  <span class="s2">&quot;max_operation_data_length&quot;</span><span class="p">:</span> <span class="mi">16384</span><span class="p">,</span>
+  <span class="s2">&quot;preserved_cycles&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="s2">&quot;blocks_per_cycle&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
+  <span class="s2">&quot;blocks_per_commitment&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+  <span class="s2">&quot;blocks_per_roll_snapshot&quot;</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span>
+  <span class="s2">&quot;blocks_per_voting_period&quot;</span><span class="p">:</span> <span class="mi">32768</span><span class="p">,</span>
+  <span class="s2">&quot;time_between_blocks&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;60&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;75&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;endorsers_per_block&quot;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+  <span class="s2">&quot;hard_gas_limit_per_operation&quot;</span><span class="p">:</span> <span class="s2">&quot;400000&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;hard_gas_limit_per_block&quot;</span><span class="p">:</span> <span class="s2">&quot;4000000&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;proof_of_work_threshold&quot;</span><span class="p">:</span> <span class="s2">&quot;70368744177663&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;tokens_per_roll&quot;</span><span class="p">:</span> <span class="s2">&quot;10000000000&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;michelson_maximum_type_size&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+  <span class="s2">&quot;seed_nonce_revelation_tip&quot;</span><span class="p">:</span> <span class="s2">&quot;125000&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;origination_burn&quot;</span><span class="p">:</span> <span class="s2">&quot;257000&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;block_security_deposit&quot;</span><span class="p">:</span> <span class="s2">&quot;48000000&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;endorsement_security_deposit&quot;</span><span class="p">:</span> <span class="s2">&quot;6000000&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;block_reward&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;endorsement_reward&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;cost_per_byte&quot;</span><span class="p">:</span> <span class="s2">&quot;1000&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;hard_storage_limit_per_operation&quot;</span><span class="p">:</span> <span class="s2">&quot;60000&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="how-to-run-tezos">
+<span id="howtorun"></span><h4>How to run Tezos<a class="headerlink" href="#how-to-run-tezos" title="Permalink to this headline">¶</a></h4>
+<p>In this section we discuss how to take part in the protocol that runs the network. There are two main ways to participate in the consensus, delegating your coins and running a delegate.</p>
+</div>
+</div>
+</div>
+<div class="section" id="delegating-your-coins">
+<h2>Delegating your coins<a class="headerlink" href="#delegating-your-coins" title="Permalink to this headline">¶</a></h2>
+<p>If you don’t want to deal with the complexity of running your own delegate, you can always take part in the protocol by delegating your coins to one. Implicit accounts cannot have a delegate, so the first step is to originate an account, transfer your tez there and set a delegate. Notice that an originated account is a special case of a contract without code, so it is still necessary to pay for its small storage (see <cite>originated_account</cite>).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">originate</span> <span class="n">account</span> <span class="n">alice_del</span> <span class="k">for</span> <span class="n">alice</span> \
+                               <span class="n">transferring</span> <span class="mi">1000</span> <span class="kn">from</span> <span class="nn">alice</span> \
+                               <span class="o">--</span><span class="n">delegate</span> <span class="n">bob</span>
+</pre></div>
+</div>
+<p>As done before, we originate a contract <em>alice_del</em> with manager <em>alice</em> and we fund it with 1kꜩ. The interesting part is setting the delegate to <em>bob</em>, when originating a contract the delegate is not set by default. If you already own contracts that are delegatable you can change
+the delegate with the command <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">delegate</span></code>.</p>
+<p>Notice that, by default, an originated account is not <em>delegatable</em>, which means that you can’t change the delegate once the contract is originated, even if you initially set a delegate. To be able to change the delegate latter, add the <code class="docutils literal notranslate"><span class="pre">--delegatable</span></code> flag.</p>
+<p>Only implicit accounts can be delegates, so your delegate must be a <em>tz1</em> address. Funds in implicit accounts which are not registered as delegates do not participate in baking.</p>
+</div>
+<div class="section" id="running-a-delegate">
+<h2>Running a delegate<a class="headerlink" href="#running-a-delegate" title="Permalink to this headline">¶</a></h2>
+<p>A delegate is responsible for baking blocks, endorsing blocks and accusing other delegates in case they try to double bake or double endorse. In the network, rights for baking and endorsing are randomly assigned to delegates proportionally to the number of rolls they have been delegated. A roll is just a block of 10kꜩ and all computations with rolls are rounded to the nearest lower integer e.g. if you have 16kꜩ it amounts to 1 roll.</p>
+<p>When you obtain coins from <a class="reference internal" href="#faucet"><span class="std std-ref">the faucet</span></a>, if you are lucky to obtain more than one roll, you can register a delegate using this identity. Otherwise, you need to ask the faucet for more accounts, originate an account for each one and delegate them to the first.</p>
+<div class="section" id="deposits-and-over-delegation">
+<h3>Deposits and over-delegation<a class="headerlink" href="#deposits-and-over-delegation" title="Permalink to this headline">¶</a></h3>
+<p>When baking or endorsing a block, a <em>security deposit</em> (or <em>bond</em>) is frozen for <code class="docutils literal notranslate"><span class="pre">preserved_cycles</span></code> cycles from the account of the delegate. Hence a delegate must have enough funds to be able to pay security deposits for all the blocks it can potentially bake/endorse during <code class="docutils literal notranslate"><span class="pre">preserved_cycles</span></code>. The current deposits are <em>512ꜩ</em> for baked block and <em>64ꜩ</em> for endorsement. Note that being delegated coins doesn’t mean that a delegate can spend them, they only add up to its rolls count while all the deposits must come from the delegate’s account.</p>
+<p>If a delegate runs out of funds to deposit it won’t be able to bake or endorse, other than being a missed opportunity for them this has also negative consequences on the network. Missing baking slots slows the network, as it is necessary to wait one minute for the baker at priority 2 to bake, while missing endorsements reduce the fitness of the chain, making it more susceptible to forks. Running out of funds can happen if a delegate is <em>over-delegated</em>, that is if the amount of rolls it was delegate is disproportionate with respect to its available funds. It is the responsibility of every delegator to make sure a delegate is not already over-delegated (a delegate cannot refuse a delegation) and each delegate should plan carefully its deposits.</p>
+</div>
+<div class="section" id="expected-rights-deposits-and-rewards">
+<span id="expected-rights"></span><h3>Expected rights, deposits and rewards<a class="headerlink" href="#expected-rights-deposits-and-rewards" title="Permalink to this headline">¶</a></h3>
+<p>Let’s assume we have 1 roll, we want to estimate our chances to bake or endorse in order to prepare the funds for our deposits. Our chances depend on how many rolls are currently active in the network, once we know that we can estimate how many blocks and endorsements we could be assigned in a cycle. The number of active rolls can be computed with two RPCs, first we list all the active delegates with <code class="docutils literal notranslate"><span class="pre">delegates?active</span></code>, then we sum all their <code class="docutils literal notranslate"><span class="pre">stacking_balance</span></code> and we simply divide by the size of a roll, 10kꜩ. At the time of writing, on Betanet the number of active rolls is ~30k so for each block we know that the chance that we get selected for baking is <code class="docutils literal notranslate"><span class="pre">1/30k</span></code> while for endorsing is 32 times that. Given that every draw is with replacement, the distribution that describes our chances of being selected is the binomial with probability of success <code class="docutils literal notranslate"><span class="pre">p=1/30k</span></code>. The distribution has another parameter <code class="docutils literal notranslate"><span class="pre">n</span></code> for the number of times we draw, in our case in a cycle the draws for baking are <code class="docutils literal notranslate"><span class="pre">n_b</span> <span class="pre">=</span>
+<span class="pre">4096</span></code> while for endorsing are <code class="docutils literal notranslate"><span class="pre">n_e</span> <span class="pre">=</span> <span class="pre">4096</span> <span class="pre">*</span> <span class="pre">32</span></code>. Moreover we could extend <code class="docutils literal notranslate"><span class="pre">n</span></code> to cover <code class="docutils literal notranslate"><span class="pre">preserved_cycles</span> <span class="pre">=</span> <span class="pre">5</span></code>. Once we have <code class="docutils literal notranslate"><span class="pre">p</span></code> and <code class="docutils literal notranslate"><span class="pre">n</span></code>, the expected number of times that we might get selected is <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">*</span> <span class="pre">n</span></code> (the mean of the distribution).</p>
+<p>Over many cycles our chances will fall around the mean, in some cycles we will unlucky get less rights, but in some cycles we might get lucky and be assigned more rights! Clearly we would like to plan ahead and have enough deposits to cover also the “lucky” cycles so we need to compute a sort of “maximum” number of rights that is safe for <cite>most cases</cite>. We can compute this maximum using the inverse of Cumulative Distribution Function of the Binomial where <cite>most cases</cite> is a value of confidence that we can put to 95%. There a simple <a class="reference external" href="https://gitlab.com/paracetamolo/utils/blob/master/estimated-rights.py">Python script</a> that does the computation for us and returns the deposits and rewards, expected and maximum, for a cycle and for <cite>preserved_cycles</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">prob</span> <span class="n">success</span> <span class="mf">3.333333e-05</span>
+<span class="n">confidence</span>   <span class="mf">0.95</span>
+<span class="o">----------</span><span class="n">one</span><span class="o">-</span><span class="n">cycle</span><span class="o">--------------------</span>
+<span class="n">blocks</span>
+ <span class="n">mean</span> <span class="mf">0.14</span>
+ <span class="nb">max</span>  <span class="mf">1.00</span>
+<span class="n">endorsements</span>
+ <span class="n">mean</span> <span class="mf">4.37</span>
+ <span class="nb">max</span>  <span class="mf">8.00</span>
+<span class="n">deposits</span>
+ <span class="n">mean</span> <span class="mf">69.91</span> <span class="o">+</span> <span class="mf">279.62</span>
+ <span class="nb">max</span>  <span class="mf">512.00</span> <span class="o">+</span> <span class="mf">512.00</span>
+<span class="n">rewards</span>
+ <span class="n">mean</span> <span class="mf">2.18</span> <span class="o">+</span> <span class="mf">8.74</span>
+ <span class="nb">max</span>  <span class="mf">16.00</span> <span class="o">+</span> <span class="mf">16.00</span>
+<span class="o">----------</span><span class="n">preserved</span><span class="o">-</span><span class="n">cycles</span><span class="o">-------------</span>
+<span class="n">blocks</span>
+ <span class="n">mean</span> <span class="mf">0.68</span>
+ <span class="nb">max</span>  <span class="mf">2.00</span>
+<span class="n">endorsements</span>
+ <span class="n">mean</span> <span class="mf">21.85</span>
+ <span class="nb">max</span>  <span class="mf">30.00</span>
+<span class="n">deposits</span>
+ <span class="n">mean</span> <span class="mf">349.53</span> <span class="o">+</span> <span class="mf">1398.10</span>
+ <span class="nb">max</span>  <span class="mf">1024.00</span> <span class="o">+</span> <span class="mf">1920.00</span>
+<span class="n">rewards</span>
+ <span class="n">mean</span> <span class="mf">10.92</span> <span class="o">+</span> <span class="mf">43.69</span>
+ <span class="nb">max</span>  <span class="mf">32.00</span> <span class="o">+</span> <span class="mf">60.00</span>
+</pre></div>
+</div>
+<p>As a rule of thumb if we want to have a very high confidence that we won’t miss any opportunity we should have around ~3kꜩ for deposits, on the other hand the expected returns will probably be around ~10ꜩ per cycle.</p>
+<p>After <code class="docutils literal notranslate"><span class="pre">preserved_cycles</span></code>, not only the delegate takes back control of its frozen deposits but it also receives the rewards for its hard work which amount to 16ꜩ to bake a block and <code class="docutils literal notranslate"><span class="pre">ꜩ2</span> <span class="pre">/</span> <span class="pre">&lt;block_priority&gt;</span></code> for endorsing a block. Additionally a baker also receives the fees of the operations it included in its blocks. While fees are unfrozen after <code class="docutils literal notranslate"><span class="pre">preserved_cycles</span></code> like deposits and rewards, they participate in the staking balance of the delegate immediately after the block has been baked.</p>
+</div>
+<div class="section" id="register-and-check-your-rights">
+<h3>Register and check your rights<a class="headerlink" href="#register-and-check-your-rights" title="Permalink to this headline">¶</a></h3>
+<p>In order to run a delegate you first need to register as one using your implicit account:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">client</span> <span class="n">register</span> <span class="n">key</span> <span class="n">bob</span> <span class="k">as</span> <span class="n">delegate</span>
+</pre></div>
+</div>
+<p>Once registered, you need to wait <code class="docutils literal notranslate"><span class="pre">preserved_cycles</span> <span class="pre">+</span> <span class="pre">2</span> <span class="pre">=</span> <span class="pre">7</span></code> cycles for your rights to be considered.</p>
+<p>There is a simple rpc that can be used to check your rights for every cycle, up to 5 cycles in the future.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>tezos-client rpc get /chains/main/blocks/head/helpers/baking_rights\?cycle=300\&amp;delegate=tz1_xxxxxxxxxxx\&amp;max_priority=2
+</pre></div>
+</div>
+<p>Sometimes a delegate skips its turn so it is worth considering also baking rights at priority 2 like in the example above. There is no priority for endorsements, every missed endorsement is
+lost.</p>
+</div>
+<div class="section" id="inactive-delegates">
+<h3>Inactive delegates<a class="headerlink" href="#inactive-delegates" title="Permalink to this headline">¶</a></h3>
+<p>If a delegate doesn’t show any sign of activity for <cite>preserved_cycles</cite> it is marked <strong>inactive</strong> and its rights are removed. This mechanism is important to remove inactive delegates and reallocate their rights to the active ones so that the network is always working smoothly. Normally even a baker with one single roll should perform enough operations during 5 cycles to remain active. If for some reason you delegate is marked inactive you can reactivate it simply by re-registering again like above.</p>
+</div>
+<div class="section" id="baker">
+<h3>Baker<a class="headerlink" href="#baker" title="Permalink to this headline">¶</a></h3>
+<p>The baker is a daemon that once connected to an account, computes the baking rights for that account, collects transactions from the mempool and bakes a block. Note that the baker is the only program that needs direct access to the node data directory for performance reasons.</p>
+<p>Let’s launch the daemon pointing to the standard node directory and baking for user <em>bob</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">baker</span><span class="o">-</span><span class="n">alpha</span> <span class="n">run</span> <span class="k">with</span> <span class="n">local</span> <span class="n">node</span> <span class="o">~/.</span><span class="n">tezos</span><span class="o">-</span><span class="n">node</span> <span class="n">bob</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="endorser">
+<h3>Endorser<a class="headerlink" href="#endorser" title="Permalink to this headline">¶</a></h3>
+<p>The endorser is a daemon that once connected to an account, computes the endorsing rights for that account and, upon reception of a new block, verifies the validity of the block and emits an endorsement operation. It can endorse for a specific account or if omitted it endorses for all accounts.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">endorser</span><span class="o">-</span><span class="n">alpha</span> <span class="n">run</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="accuser">
+<h3>Accuser<a class="headerlink" href="#accuser" title="Permalink to this headline">¶</a></h3>
+<p>The accuser is a daemon that monitors all blocks received on all chains and looks for:</p>
+<ul class="simple">
+<li>bakers who signed two blocks at the same level</li>
+<li>endorsers who injected more than one endorsement operation for the
+same baking slot (more details <span class="xref std std-ref">here</span>)</li>
+</ul>
+<p>Upon finding such irregularity, it will emit respectively a double-baking or double-endorsing denunciation operation, which will cause the offender to lose its security deposit.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tezos</span><span class="o">-</span><span class="n">accuser</span><span class="o">-</span><span class="n">alpha</span> <span class="n">run</span>
+</pre></div>
+</div>
+<p>Remember that having two bakers or endorsers running connected to the same account could lead to double baking/endorsing and the loss of all your bonds. If you are worried about availability of your node when is its turn to bake/endorse there are other ways than duplicating your credentials. <strong>Never</strong> use the same account on two daemons.</p>
+</div>
+<div class="section" id="docker">
+<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h3>
+<p>The docker image runs the daemons by default for all your keys. To know if you baked, just run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">alphanet</span><span class="o">.</span><span class="n">sh</span> <span class="n">baker</span> <span class="n">log</span>
+<span class="o">./</span><span class="n">alphanet</span><span class="o">.</span><span class="n">sh</span> <span class="n">endorser</span> <span class="n">log</span>
+</pre></div>
+</div>
+<p>You should see lines such as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Injected</span> <span class="n">block</span> <span class="n">BLxzbB7PBW1axq</span> <span class="k">for</span> <span class="n">bootstrap5</span> <span class="n">after</span> <span class="n">BLSrg4dXzL2aqq</span>  <span class="p">(</span><span class="n">level</span> <span class="mi">1381</span><span class="p">,</span> <span class="n">slot</span> <span class="mi">0</span><span class="p">,</span> <span class="n">fitness</span> <span class="mi">00</span><span class="p">::</span><span class="mi">0000000000005441</span><span class="p">,</span> <span class="n">operations</span> <span class="mi">21</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Injected</span> <span class="n">endorsement</span> <span class="k">for</span> <span class="n">block</span> <span class="s1">&#39;BLSrg4dXzL2aqq&#39;</span>  <span class="p">(</span><span class="n">level</span> <span class="mi">1381</span><span class="p">,</span> <span class="n">slot</span> <span class="mi">3</span><span class="p">,</span> <span class="n">contract</span> <span class="n">bootstrap5</span><span class="p">)</span> <span class="s1">&#39;oo524wKiEWBoPD&#39;</span>
+</pre></div>
+</div>
+<p><span class="xref std std-ref">part8</span>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="part6.html" title="Installing and Running your own Tezos node"
+             >previous</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jackie Zhang &amp; Kent Makishima.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+  </body>
+</html>

@@ -29,12 +29,16 @@ Capstone Content Section I
 
 Capstone Content Section II
 ==================
+
+Welcome to Tezos Capstone Section 2! In this section, we will be getting hands on with Tezos, and starting development. We will first cover downloading the Tezos binaries and getting familiar with basic commands, then learn the basics of smart contracts, and finally build your first dApp! Let’s get started
+
 .. only:: html
 
 .. toctree::
   :maxdepth: 2
 
   part6.rst
+  part7.rst
 
 
 Search Tool
