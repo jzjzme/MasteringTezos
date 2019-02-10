@@ -13,7 +13,7 @@ We highly recommend that you read the following link https://consensys.github.io
 
 Additional Resources:
 
-Smart Contract potential and drawbacks https://corpgov.law.harvard.edu/2018/05/26/an-introduction-to-smart-contracts-and-their-potential-and-inherent-limitations/
+`Smart Contract potential and drawbacks <https://corpgov.law.harvard.edu/2018/05/26/an-introduction-to-smart-contracts-and-their-potential-and-inherent-limitations/ />`_
 
 Liquidity
 ------------
