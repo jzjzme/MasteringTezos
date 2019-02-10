@@ -39,7 +39,7 @@ Welcome to Tezos Capstone Section 2! In this section, we will be getting hands o
 
   part6.rst
   part7.rst
-
+  part8.rst
 
 Search Tool
 ==================

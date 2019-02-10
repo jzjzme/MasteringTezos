@@ -1,0 +1,343 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Smart Contracts and Liquidity &#8212; Tezos Capstone January 11, 2019 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Using Tezos and Basic Commands" href="part7.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="index.html"><h1 style="font-size: 3em;">Tezos Capstone</h1></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="part7.html" title="Using Tezos and Basic Commands"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Smart Contracts and Liquidity</a><ul>
+<li><a class="reference internal" href="#considerations">Considerations</a></li>
+<li><a class="reference internal" href="#liquidity">Liquidity</a></li>
+<li><a class="reference internal" href="#tuples">Tuples</a></li>
+<li><a class="reference internal" href="#records">Records</a></li>
+<li><a class="reference internal" href="#variants">Variants</a></li>
+<li><a class="reference internal" href="#functions-and-closures">Functions and Closures</a></li>
+<li><a class="reference internal" href="#loops">Loops</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="part7.html"
+                        title="previous chapter">Using Tezos and Basic Commands</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/part8.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="smart-contracts-and-liquidity">
+<span id="part8"></span><h1>Smart Contracts and Liquidity<a class="headerlink" href="#smart-contracts-and-liquidity" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="considerations">
+<h2>Considerations<a class="headerlink" href="#considerations" title="Permalink to this headline">¶</a></h2>
+<p>As we covered smart contracts in Section 1, let’s delve a little bit more into design considerations. Smart contracts are simply transactional code, and may be dependent on off-chain resources such as data or inputs. It is important to consider that these resources may not be accurate and could create flawed results. Security is also important as smart contract code is available to users on the blockchain. Make sure to obfuscate or remove sensitive code which may used for malicious intentions. Also, do not forget to add in considerations for bugs or flawed input as well!</p>
+<p>We highly recommend that you read the following link <a class="reference external" href="https://consensys.github.io/smart-contract-best-practices/">https://consensys.github.io/smart-contract-best-practices/</a> from Consensys about good smart contract practices. Although it is focused on solidity contracts for Ethereum, many of the same principles apply for Tezos development.</p>
+<p>Additional Resources:</p>
+<p>Smart Contract potential and drawbacks <a class="reference external" href="https://corpgov.law.harvard.edu/2018/05/26/an-introduction-to-smart-contracts-and-their-potential-and-inherent-limitations/">https://corpgov.law.harvard.edu/2018/05/26/an-introduction-to-smart-contracts-and-their-potential-and-inherent-limitations/</a></p>
+</div>
+<div class="section" id="liquidity">
+<h2>Liquidity<a class="headerlink" href="#liquidity" title="Permalink to this headline">¶</a></h2>
+<p>Liquidity is the contract language developed for Tezos as an alternative to michelson. We won’t be covering the fine details of Liquidity, as we believe it is best to learn by doing than reading some boring documentation. Let’s look at some basics taken from the liquidity documentation <a class="reference external" href="http://www.liquidity-lang.org/doc/tutorial/tutorial.html">http://www.liquidity-lang.org/doc/tutorial/tutorial.html</a>:</p>
+</div>
+<div class="section" id="tuples">
+<h2>Tuples<a class="headerlink" href="#tuples" title="Permalink to this headline">¶</a></h2>
+<p>Tuples in Liquidity are compiled to pairs in Michelson:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="o">&lt;=&gt;</span> <span class="n">Pair</span> <span class="n">x</span> <span class="p">(</span><span class="n">Pair</span> <span class="n">y</span> <span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Tuples can be accessed using the field access notation of Liquidity:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">should_be_true</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="n">z</span> <span class="ow">in</span>
+</pre></div>
+</div>
+<p>A new tuple can be created from another one using the field access update
+notation of Liquidity:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">z</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="mi">4</span> <span class="ow">in</span>
+</pre></div>
+</div>
+<p>Tuples can be deconstructed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span> <span class="n">t</span> <span class="p">:</span> <span class="p">(</span><span class="nb">int</span> <span class="o">*</span> <span class="p">(</span><span class="nb">bool</span> <span class="o">*</span> <span class="n">nat</span><span class="p">)</span> <span class="o">*</span> <span class="nb">int</span><span class="p">)</span> <span class="o">*</span><span class="p">)</span>
+<span class="n">let</span> <span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">_</span><span class="p">),</span> <span class="n">i</span> <span class="o">=</span> <span class="n">t</span> <span class="ow">in</span>
+<span class="o">...</span>
+<span class="p">(</span><span class="o">*</span> <span class="n">b</span> <span class="p">:</span> <span class="nb">bool</span>
+   <span class="n">i</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">*</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="records">
+<h2>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h2>
+<p>Record types can be declared and used inside a liquidity contract:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="n">storage</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">x</span> <span class="p">:</span> <span class="n">string</span><span class="p">;</span>
+  <span class="n">y</span> <span class="p">:</span> <span class="nb">int</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Such types can be created and used inside programs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">r</span> <span class="o">=</span> <span class="p">{</span> <span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">}</span> <span class="ow">in</span>
+<span class="n">r</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+<p>Records are compiled as tuples.</p>
+<p>Deep record creation is possible using the notation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">r1</span> <span class="o">=</span> <span class="p">{</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">y</span> <span class="o">=</span> <span class="p">{</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">3</span> <span class="p">}</span> <span class="p">}</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">z</span> <span class="o">&lt;-</span> <span class="mi">4</span> <span class="ow">in</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="variants">
+<h2>Variants<a class="headerlink" href="#variants" title="Permalink to this headline">¶</a></h2>
+<p>Variants should be defined before use, before the contract
+declaration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span> <span class="n">t</span> <span class="o">=</span>
+<span class="o">|</span> <span class="n">X</span>
+<span class="o">|</span> <span class="n">Y</span> <span class="n">of</span> <span class="nb">int</span>
+<span class="o">|</span> <span class="n">Z</span> <span class="n">of</span> <span class="n">string</span> <span class="o">*</span> <span class="n">nat</span>
+</pre></div>
+</div>
+<p>Variants can be created using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">X</span> <span class="mi">3</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Z</span> <span class="n">s</span> <span class="ow">in</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">match</span></code> construct can be used to pattern-match on them, but only
+on the first constructor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">match</span> <span class="n">x</span> <span class="k">with</span>
+<span class="o">|</span> <span class="n">X</span> <span class="o">-&gt;</span> <span class="o">...</span>
+<span class="o">|</span> <span class="n">Y</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="o">...</span>
+<span class="o">|</span> <span class="n">Z</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">s</span></code> are variables that are bound by the construct to the
+parameter of the variant.</p>
+<p>Parameters of variants can also be deconstructed when they are tuples,
+so one can write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">match</span> <span class="n">x</span> <span class="k">with</span>
+<span class="o">|</span> <span class="n">X</span> <span class="o">-&gt;</span> <span class="o">...</span>
+<span class="o">|</span> <span class="n">Y</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="o">...</span>
+<span class="o">|</span> <span class="n">Z</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>A special case of variants is the <code class="docutils literal notranslate"><span class="pre">Left</span> <span class="pre">|</span> <span class="pre">Right</span></code> predefined variant,
+called <code class="docutils literal notranslate"><span class="pre">variant</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>type (``left, ``right) variant =
+| Left of ``left
+| Right of ``right
+</pre></div>
+</div>
+<p>Occurrences of these variants may optionally be constrained with type
+annotations:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">Left</span> <span class="mi">3</span> <span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span> <span class="n">variant</span><span class="p">)</span> <span class="ow">in</span>
+<span class="n">match</span> <span class="n">x</span> <span class="k">with</span>
+<span class="o">|</span> <span class="n">Left</span> <span class="n">left</span>  <span class="o">-&gt;</span> <span class="o">...</span>
+<span class="o">|</span> <span class="n">Right</span> <span class="n">right</span> <span class="o">-&gt;</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p>Another special variant is the <code class="docutils literal notranslate"><span class="pre">Source</span></code> variant: it is used to refer to
+the contract that called the current contract:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">Source</span> <span class="p">:</span> <span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span> <span class="n">contract</span><span class="p">)</span> <span class="ow">in</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>As for <code class="docutils literal notranslate"><span class="pre">Left</span></code> and <code class="docutils literal notranslate"><span class="pre">Right</span></code>, <code class="docutils literal notranslate"><span class="pre">Source</span></code> occurrences may be constrained by
+type annotations.</p>
+</div>
+<div class="section" id="functions-and-closures">
+<h2>Functions and Closures<a class="headerlink" href="#functions-and-closures" title="Permalink to this headline">¶</a></h2>
+<p>Unlike Michelson, functions in Liquidity can also be closures. They can take multiple arguments and are curryfied. Because closures are lambda-lifted, it is however recommended to use a single tuple argument when possible. Arguments and return types are inferred, which enables to write polymorphic functions. Type annotations may optionally be used to constrain their type.</p>
+<p>Function applications are often done using the <code class="docutils literal notranslate"><span class="pre">Lambda.pipe</span></code> function
+or the <code class="docutils literal notranslate"><span class="pre">|&gt;</span></code> operator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">succ</span> <span class="o">=</span> <span class="n">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">one</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">|&gt;</span> <span class="n">succ</span> <span class="ow">in</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>but they can also be done directly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">let</span> <span class="n">succ</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">one</span> <span class="o">=</span> <span class="n">succ</span> <span class="mi">0</span> <span class="ow">in</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>A top level function can also be defined before the main entry point:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">%%</span><span class="n">version</span> <span class="mf">0.2</span><span class="p">]</span>
+
+<span class="n">let</span> <span class="n">succ</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">let</span><span class="o">%</span><span class="n">entry</span> <span class="n">main</span> <span class="o">...</span> <span class="o">=</span>
+  <span class="o">...</span>
+  <span class="n">let</span> <span class="n">one</span> <span class="o">=</span> <span class="n">succ</span> <span class="mi">0</span> <span class="ow">in</span>
+  <span class="o">...</span>
+</pre></div>
+</div>
+<p>Closures can be created with the same syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">10</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">sum_and_add_p</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">p</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">r</span> <span class="o">=</span> <span class="n">add_p</span> <span class="mi">3</span> <span class="mi">4</span> <span class="ow">in</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>This is equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">10</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">sum_and_add_p</span> <span class="o">=</span>
+  <span class="n">fun</span> <span class="n">x</span> <span class="o">-&gt;</span>
+    <span class="n">fun</span> <span class="n">y</span> <span class="o">-&gt;</span>
+      <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">p</span>
+<span class="ow">in</span>
+<span class="n">let</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">|&gt;</span> <span class="p">(</span><span class="mi">3</span> <span class="o">|&gt;</span> <span class="n">add_p</span><span class="p">)</span> <span class="ow">in</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Functions with multiple arguments should take a tuple as argument because
+curried versions will generate larger code and should be avoided
+unless partial application is important. The previous function should
+be written as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">sum_and_add_p</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span>
+  <span class="n">let</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">10</span> <span class="ow">in</span>
+  <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="n">p</span>
+<span class="ow">in</span>
+<span class="n">let</span> <span class="n">r</span> <span class="o">=</span> <span class="n">add_p</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="ow">in</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Also note that polymorphic functions will be monomorphised in Michelson,
+which will duplicate the function for each of its type and thus generate
+larger code.</p>
+</div>
+<div class="section" id="loops">
+<h2>Loops<a class="headerlink" href="#loops" title="Permalink to this headline">¶</a></h2>
+<p>Loops in liquidity share some syntax with functions, but the body of
+the loop is not a function, so it can access the environment, as would
+a closure do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">let</span> <span class="n">end_loop</span> <span class="o">=</span> <span class="mi">5</span> <span class="ow">in</span>
+<span class="n">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">Loop</span><span class="o">.</span><span class="n">loop</span> <span class="p">(</span><span class="n">fun</span> <span class="n">x</span> <span class="o">-&gt;</span>
+    <span class="o">...</span>
+    <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">end_loop</span><span class="p">,</span> <span class="n">x</span><span class="s1">&#39;)</span>
+  <span class="p">)</span> <span class="n">x_init</span>
+<span class="ow">in</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>As shown in this example, the body of the loop returns a pair, whose first
+part is the condition to remain in the loop, and the second part is the
+accumulator.</p>
+<p>Now let’s look at the basic format of a Liqudity contract:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">%%</span><span class="n">version</span> <span class="mf">0.4</span><span class="p">]</span>
+<span class="o">&lt;...</span> <span class="n">local</span> <span class="n">declarations</span> <span class="o">...&gt;</span>
+
+<span class="nb">type</span> <span class="n">storage</span> <span class="o">=</span> <span class="n">TYPE</span>
+
+<span class="n">let</span><span class="o">%</span><span class="n">init</span> <span class="n">storage</span>
+   <span class="p">(</span><span class="n">x</span> <span class="p">:</span> <span class="n">TYPE</span><span class="p">)</span>
+   <span class="p">(</span><span class="n">y</span> <span class="p">:</span> <span class="n">TYPE</span><span class="p">)</span>
+   <span class="o">...</span> <span class="o">=</span>
+   <span class="n">BODY</span>
+
+<span class="n">let</span><span class="o">%</span><span class="n">entry</span> <span class="n">entrypoint1</span>
+   <span class="p">(</span><span class="n">p1</span> <span class="p">:</span> <span class="n">TYPE</span><span class="p">)</span>
+   <span class="p">(</span><span class="n">s1</span> <span class="p">:</span> <span class="n">TYPE</span><span class="p">)</span> <span class="o">=</span>
+   <span class="n">BODY</span>
+
+<span class="n">let</span><span class="o">%</span><span class="n">entry</span> <span class="n">entrypoint2</span>
+   <span class="p">(</span><span class="n">p2</span> <span class="p">:</span> <span class="n">TYPE</span><span class="p">)</span>
+   <span class="p">(</span><span class="n">s2</span> <span class="p">:</span> <span class="n">TYPE</span><span class="p">)</span> <span class="o">=</span>
+   <span class="n">BODY</span>
+
+<span class="n">let</span><span class="o">%</span><span class="n">entry</span> <span class="n">main</span>
+   <span class="p">(</span><span class="n">parameter</span> <span class="p">:</span> <span class="n">TYPE</span><span class="p">)</span>
+   <span class="p">(</span><span class="n">storage</span> <span class="p">:</span> <span class="n">TYPE</span><span class="p">)</span> <span class="o">=</span>
+   <span class="n">BODY</span>
+</pre></div>
+</div>
+<p>At the top of the contract is first the specification of what version of compiler we will be using. Next is some local declarations, followed by some init functions which will only execute once when the contract is deployed. Afterwards are the entry functions, which are like functions which can be called outside of the smart contract, allowing external interactions. The main function is the fallback or default entry point if there were no entry points defined. Each entry function has two parts, the parameter for logic, and the storage.</p>
+<p><span class="xref std std-ref">part9</span>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="part7.html" title="Using Tezos and Basic Commands"
+             >previous</a> |</li>
+        <li><a href="index.html">home</a>|&nbsp;</li>
+        <li><a href="search.html">search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Jackie Zhang &amp; Kent Makishima.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+    </div>
+  </body>
+</html>
