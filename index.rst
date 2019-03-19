@@ -45,6 +45,19 @@ Welcome to Tezos Capstone Section 2! In this section, we will be getting hands o
   part11.rst
   part12.rst
 
+Capstone Section III : Make your app!
+=========================================
+
+Congratulations for reaching Tezos Capstone Section 3! Now begins the fun part, building your own dapps for Tezos! There is no restrictions on what you can build, with imagination the limit on building the next generation decentralized applications. As we mentioned earlier, projects will be eligible for awesome prizes, with the best teams provided travel to New York to participate in the Tezos main hackathon. Put your new Tezos development skill set to use, and build your Capstone project!
+
+.. only:: html
+
+.. toctree::
+  :maxdepth: 4
+
+  part13.rst
+
+
 Search Tool
 ==================
 * :ref:`search`
